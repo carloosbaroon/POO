@@ -6,6 +6,32 @@ public class Automovil {
     private double cilindrada;
     private int capacidadTanque = 40;
 
+    public Automovil(){
+    }
+
+    public Automovil(String fabricante, String modelo) {
+        this.fabricante = fabricante;
+        this.modelo = modelo;
+    }
+
+    public Automovil(String fabricante, String modelo, String color) {
+        //Llamando constructor con dos parametros
+        this(fabricante, modelo);
+        this.color = color;
+    }
+
+    public Automovil(String fabricante, String modelo, String color, double cilindrada) {
+        //Llamando constructor con tres parametros
+        this(fabricante, modelo, color);
+        this.cilindrada = cilindrada;
+    }
+
+    public Automovil(String fabricante, String modelo, String color, double cilindrada, int capacidadTanque) {
+        //Llamando constructor con cuatro parametros
+        this(fabricante, modelo, color, cilindrada);
+        this.capacidadTanque = capacidadTanque;
+    }
+
     public String getFabricante() {
         return this.fabricante;
     }
@@ -48,10 +74,10 @@ public class Automovil {
     }
 
     public String verDetalle() {
-        return "auto.fabricante = " + this.fabricante +
-                "\nauto.modelo = " + this.modelo +
-                "\nauto.cilindrada = " + this.cilindrada +
-                "\nauto.color = " + this.color;
+        return "auto.fabricante = " + this.getFabricante() +
+                "\nauto.modelo = " + this.getModelo() +
+                "\nauto.cilindrada = " + this.getCilindrada() +
+                "\nauto.color = " + this.getColor();
     }
 
     public String acelerar(int rpm) {
