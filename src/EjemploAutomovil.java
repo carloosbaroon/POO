@@ -9,6 +9,10 @@ public class EjemploAutomovil {
         System.out.println("mazda.getFabricante() = " + mazda.getFabricante());
 
         Automovil nissan = new Automovil("Nissan", "Navara", "Gris Oscuro", 3.5, 50);
+        Automovil nissan2 = new Automovil("Nissan", "Navara", "Gris Oscuro", 3.5, 50);
+
+        System.out.println("Son iguales? " + (nissan == nissan2));
+        System.out.println("Son iguales? " + (nissan.equals(nissan2)));
 
         System.out.println(subaru.verDetalle());
         System.out.println(mazda.verDetalle());
