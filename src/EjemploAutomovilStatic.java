@@ -2,7 +2,7 @@ import java.util.Date;
 
 public class EjemploAutomovilStatic {
     public static void main(String[] args) {
-        
+
         Automovil subaru = new Automovil("Subaru", "Impresa");
         subaru.setCilindrada(2.0);
         subaru.setColor("Blanco");
@@ -14,6 +14,8 @@ public class EjemploAutomovilStatic {
         Automovil nissan2 = new Automovil("Nissan", "Navara", "Gris Oscuro", 3.5, 50);
         Automovil auto = new Automovil();
 
+        Automovil.setCapacidadTanqueEstatico(45);
+
         Automovil.setColorPatente("verde");
 
         System.out.println(subaru.verDetalle());
@@ -22,7 +24,7 @@ public class EjemploAutomovilStatic {
         System.out.println(nissan2.verDetalle());
 
         System.out.println("Automovil.getColorPatente() = " + Automovil.getColorPatente());
-        
+        System.out.println("Automovil.calcularConsumoEstatico(300, 60) = " + Automovil.calcularConsumoEstatico(300, 60));
 
     }
 }

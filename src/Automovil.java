@@ -5,14 +5,18 @@ public class Automovil {
     private String color = "gris";
     private double cilindrada;
     private int capacidadTanque = 40;
+    private int id;
     private static String colorPatente = "Naranja";
 
     private static int capacidadTanqueEstatico = 30;
+    private static int ultimoId;
 
     public Automovil(){
+        this.id = ++ultimoId;
     }
 
     public Automovil(String fabricante, String modelo) {
+        this();
         this.fabricante = fabricante;
         this.modelo = modelo;
     }
@@ -59,6 +63,14 @@ public class Automovil {
         return colorPatente;
     }
 
+    public static int getCapacidadTanqueEstatico() {
+        return capacidadTanqueEstatico;
+    }
+
+    public int getId() {
+        return id;
+    }
+
     public void setFabricante(String fabricante) {
         this.fabricante = fabricante;
     }
@@ -75,6 +87,10 @@ public class Automovil {
         this.cilindrada = cilindrada;
     }
 
+    public static void setCapacidadTanqueEstatico(int capacidadTanqueEstatico) {
+        Automovil.capacidadTanqueEstatico = capacidadTanqueEstatico;
+    }
+
     public Automovil setCapacidadTanque(int capacidadTanque) {
         this.capacidadTanque = capacidadTanque;
         return this;
@@ -84,8 +100,14 @@ public class Automovil {
         Automovil.colorPatente = colorPatente;
     }
 
+    public Automovil setId(int id) {
+        this.id = id;
+        return this;
+    }
+
     public String verDetalle() {
-        return "auto.fabricante = " + this.getFabricante() +
+        return  "auto.id = " + this.getId() +
+                "\nauto.fabricante = " + this.getFabricante() +
                 "\nauto.modelo = " + this.getModelo() +
                 "\nauto.cilindrada = " + this.getCilindrada() +
                 "\nauto.colorPatente = " + colorPatente +
