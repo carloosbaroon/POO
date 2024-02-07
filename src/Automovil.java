@@ -8,6 +8,8 @@ public class Automovil {
     private int id;
     private static Color colorPatente = Color.NARANJA;
 
+    private TipoAutomovil tipo;
+
     private static int capacidadTanqueEstatico = 30;
     private static int ultimoId;
     public static final Integer VELOCIDAD_MAXIMA_CARRETERA = 120;
@@ -102,6 +104,15 @@ public class Automovil {
         Automovil.colorPatente = colorPatente;
     }
 
+    public TipoAutomovil getTipo() {
+        return tipo;
+    }
+
+    public Automovil setTipo(TipoAutomovil tipo) {
+        this.tipo = tipo;
+        return this;
+    }
+
     public Automovil setId(int id) {
         this.id = id;
         return this;
@@ -111,6 +122,7 @@ public class Automovil {
         return  "auto.id = " + this.getId() +
                 "\nauto.fabricante = " + this.getFabricante() +
                 "\nauto.modelo = " + this.getModelo() +
+                "\nauto.tipo = " + this.getTipo().getDescripcion() +
                 "\nauto.cilindrada = " + this.getCilindrada() +
                 "\nauto.colorPatente = " + colorPatente +
                 "\nauto.color = " + this.getColor();
