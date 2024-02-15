@@ -2,16 +2,29 @@ import java.util.Date;
 
 public class EjemploAutomovil {
     public static void main(String[] args) {
-        
-        Automovil subaru = new Automovil("Subaru", "Impresa");
-        subaru.setCilindrada(2.0);
-        subaru.setColor(Color.BLANCO);
 
-        Automovil mazda = new Automovil("Mazda", "BT-50", Color.ROJO, 3.0);
+        Motor motorSubaru = new Motor(2.0, TipoMotor.BENCINA);
+        Automovil subaru = new Automovil("Subaru", "Impresa");
+        subaru.setMotor(motorSubaru);
+        subaru.setTanque(new Tanque());
+        subaru.setColor(Color.BLANCO);
+        subaru.setTipo(TipoAutomovil.SEDAN);
+
+        Automovil mazda = new Automovil("Mazda", "BT-50", Color.ROJO, new Motor(3.0, TipoMotor.DIESEL));
+        mazda.setTanque(new Tanque(45));
+        mazda.setTipo(TipoAutomovil.FURGON);
         System.out.println("mazda.getFabricante() = " + mazda.getFabricante());
 
-        Automovil nissan = new Automovil("Nissan", "Navara", Color.GRIS, 3.5, 50);
-        Automovil nissan2 = new Automovil("Nissan", "Navara", Color.GRIS, 3.5, 50);
+
+        Motor motorNissan = new Motor(4.0, TipoMotor.DIESEL);
+        Tanque tanqueNissan = new Tanque(50);
+
+        Automovil nissan = new Automovil("Nissan", "Navara", Color.GRIS, motorNissan, tanqueNissan);
+        Automovil nissan2 = new Automovil("Nissan", "Navara", Color.GRIS, motorNissan, tanqueNissan);
+
+        nissan.setTipo(TipoAutomovil.PICKUP);
+        nissan2.setTipo(TipoAutomovil.PICKUP);
+
         Automovil auto = new Automovil();
         Date fecha = new Date();
 

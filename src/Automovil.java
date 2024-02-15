@@ -3,8 +3,10 @@ public class Automovil {
     private String fabricante;
     private String modelo;
     private Color color = Color.GRIS;
-    private double cilindrada;
-    private int capacidadTanque = 40;
+    private Motor motor;
+    private Tanque tanque;
+    private Persona conductor;
+    private Rueda[] ruedas;
     private int id;
     private static Color colorPatente = Color.NARANJA;
 
@@ -31,16 +33,16 @@ public class Automovil {
         this.color = color;
     }
 
-    public Automovil(String fabricante, String modelo, Color color, double cilindrada) {
+    public Automovil(String fabricante, String modelo, Color color, Motor motor) {
         //Llamando constructor con tres parametros
         this(fabricante, modelo, color);
-        this.cilindrada = cilindrada;
+        this.motor = motor;
     }
 
-    public Automovil(String fabricante, String modelo, Color color, double cilindrada, int capacidadTanque) {
+    public Automovil(String fabricante, String modelo, Color color, Motor motor, Tanque tanque) {
         //Llamando constructor con cuatro parametros
-        this(fabricante, modelo, color, cilindrada);
-        this.capacidadTanque = capacidadTanque;
+        this(fabricante, modelo, color, motor);
+        this.tanque = tanque;
     }
 
     public String getFabricante() {
@@ -53,14 +55,6 @@ public class Automovil {
 
     public Color getColor() {
         return this.color;
-    }
-
-    public double getCilindrada() {
-        return this.cilindrada;
-    }
-
-    public int getCapacidadTanque() {
-        return this.capacidadTanque;
     }
 
     public static Color getColorPatente() {
@@ -87,17 +81,8 @@ public class Automovil {
         this.color = color;
     }
 
-    public void setCilindrada(double cilindrada) {
-        this.cilindrada = cilindrada;
-    }
-
     public static void setCapacidadTanqueEstatico(int capacidadTanqueEstatico) {
         Automovil.capacidadTanqueEstatico = capacidadTanqueEstatico;
-    }
-
-    public Automovil setCapacidadTanque(int capacidadTanque) {
-        this.capacidadTanque = capacidadTanque;
-        return this;
     }
 
     public static void setColorPatente(Color colorPatente) {
@@ -118,12 +103,51 @@ public class Automovil {
         return this;
     }
 
+    public Motor getMotor() {
+        return motor;
+    }
+
+    public Automovil setMotor(Motor motor) {
+        this.motor = motor;
+        return this;
+    }
+
+    public Tanque getTanque() {
+        if (tanque == null) {
+            this.tanque = new Tanque();
+        }
+        return tanque;
+    }
+
+    public Automovil setTanque(Tanque tanque) {
+        this.tanque = tanque;
+        return this;
+    }
+
+    public Persona getConductor() {
+        return conductor;
+    }
+
+    public Automovil setConductor(Persona conductor) {
+        this.conductor = conductor;
+        return this;
+    }
+
+    public Rueda[] getRuedas() {
+        return ruedas;
+    }
+
+    public Automovil setRuedas(Rueda[] ruedas) {
+        this.ruedas = ruedas;
+        return this;
+    }
+
     public String verDetalle() {
         return  "auto.id = " + this.getId() +
                 "\nauto.fabricante = " + this.getFabricante() +
                 "\nauto.modelo = " + this.getModelo() +
                 "\nauto.tipo = " + this.getTipo().getDescripcion() +
-                "\nauto.cilindrada = " + this.getCilindrada() +
+                "\nauto.cilindrada = " + this.motor.getCilindrada() +
                 "\nauto.colorPatente = " + colorPatente +
                 "\nauto.color = " + this.getColor();
     }
@@ -144,11 +168,11 @@ public class Automovil {
     }
 
     public float calcularConsumo(int km, float porcentajeGas) {
-        return km/(capacidadTanque*porcentajeGas);
+        return km/(this.tanque.getCapacidad()*porcentajeGas);
     }
 
     public float calcularConsumo(int km, int porcentajeGas) {
-        return km/(capacidadTanque*(porcentajeGas/100f));
+        return km/(this.tanque.getCapacidad()*(porcentajeGas/100f));
     }
 
     public static float calcularConsumoEstatico(int km, int porcentajeGas) {
@@ -178,8 +202,8 @@ public class Automovil {
                 "fabricante='" + fabricante + '\'' +
                 ", modelo='" + modelo + '\'' +
                 ", color='" + color + '\'' +
-                ", cilindrada=" + cilindrada +
-                ", capacidadTanque=" + capacidadTanque +
+                ", cilindrada=" + this.motor.getCilindrada() +
+                ", capacidadTanque=" + this.tanque.getCapacidad() +
                 '}';
     }
 }
