@@ -7,6 +7,7 @@ public class Automovil {
     private Tanque tanque;
     private Persona conductor;
     private Rueda[] ruedas;
+    private int indiceRuedas = 0;
     private int id;
     private static Color colorPatente = Color.NARANJA;
 
@@ -19,6 +20,7 @@ public class Automovil {
 
     public Automovil(){
         this.id = ++ultimoId;
+        this.ruedas = new Rueda[5];
     }
 
     public Automovil(String fabricante, String modelo) {
@@ -43,6 +45,12 @@ public class Automovil {
         //Llamando constructor con cuatro parametros
         this(fabricante, modelo, color, motor);
         this.tanque = tanque;
+    }
+
+    public Automovil(String fabricante, String modelo, Color color, Motor motor, Tanque tanque, Persona conductor, Rueda[] ruedas) {
+        this(fabricante, modelo, color, motor, tanque);
+        this.conductor = conductor;
+        this.ruedas = ruedas;
     }
 
     public String getFabricante() {
@@ -93,23 +101,20 @@ public class Automovil {
         return tipo;
     }
 
-    public Automovil setTipo(TipoAutomovil tipo) {
+    public void setTipo(TipoAutomovil tipo) {
         this.tipo = tipo;
-        return this;
     }
 
-    public Automovil setId(int id) {
+    public void setId(int id) {
         this.id = id;
-        return this;
     }
 
     public Motor getMotor() {
         return motor;
     }
 
-    public Automovil setMotor(Motor motor) {
+    public void setMotor(Motor motor) {
         this.motor = motor;
-        return this;
     }
 
     public Tanque getTanque() {
@@ -119,26 +124,31 @@ public class Automovil {
         return tanque;
     }
 
-    public Automovil setTanque(Tanque tanque) {
+    public void setTanque(Tanque tanque) {
         this.tanque = tanque;
-        return this;
     }
 
     public Persona getConductor() {
         return conductor;
     }
 
-    public Automovil setConductor(Persona conductor) {
+    public void setConductor(Persona conductor) {
         this.conductor = conductor;
-        return this;
     }
 
     public Rueda[] getRuedas() {
         return ruedas;
     }
 
-    public Automovil setRuedas(Rueda[] ruedas) {
+    public void setRuedas(Rueda[] ruedas) {
         this.ruedas = ruedas;
+    }
+
+    public Automovil addRueda(Rueda rueda) {
+        if(indiceRuedas < this.ruedas.length) {
+            this.ruedas[indiceRuedas++] = rueda;
+        }
+        // We return the same instance and this allow us to call the method from the same object
         return this;
     }
 
