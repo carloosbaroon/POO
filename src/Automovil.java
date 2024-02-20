@@ -1,4 +1,4 @@
-public class Automovil {
+public class Automovil implements Comparable<Automovil> {
 
     private String fabricante;
     private String modelo;
@@ -215,5 +215,11 @@ public class Automovil {
                 ", cilindrada=" + this.motor.getCilindrada() +
                 ", capacidadTanque=" + this.tanque.getCapacidad() +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Automovil a) {
+        // Here we are comparing the object by "fabricante"
+        return this.fabricante.compareTo(a.fabricante);
     }
 }
