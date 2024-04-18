@@ -1,10 +1,8 @@
 package org.cbaron.interfaces.repositorio;
 
-import org.cbaron.interfaces.modelo.Cliente;
-
 import java.util.List;
 
-public interface OrdenableRepositorio {
+public interface OrdenableRepositorio<T> {
 
-    List<Cliente> listar(String campo, Direccion dir);
+    List<T> listar(String campo, Direccion dir);
 }

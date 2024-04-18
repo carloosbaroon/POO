@@ -1,50 +1,19 @@
-package org.cbaron.interfaces.repositorio;
+package org.cbaron.interfaces.repositorio.lista;
 
 import org.cbaron.interfaces.modelo.Cliente;
+import org.cbaron.interfaces.repositorio.AbstractListRepositorio;
+import org.cbaron.interfaces.repositorio.Direccion;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ClienteListRepositorio implements OrdenablePaginableCrudRepositorio {
-
-    private List<Cliente> dataSource;
-
-    public ClienteListRepositorio() {
-        this.dataSource = new ArrayList<>();
-    }
-
-    @Override
-    public List<Cliente> listar() {
-        return dataSource;
-    }
-
-    @Override
-    public Cliente porId(Integer id) {
-        Cliente cliente = null;
-        for (Cliente c : dataSource) {
-            if (c.getId() != null && c.getId().equals(id)) {
-                cliente = c;
-                break;
-            }
-        }
-        return cliente;
-    }
-
-    @Override
-    public void crear(Cliente cliente) {
-        this.dataSource.add(cliente);
-    }
+public class ClienteListRepositorio extends AbstractListRepositorio<Cliente> {
 
     @Override
     public void editar(Cliente cliente) {
         Cliente clienteActual = this.porId(cliente.getId());
         clienteActual.setNombre(cliente.getNombre());
         clienteActual.setApellido(cliente.getApellido());
-    }
-
-    @Override
-    public void eliminar(Integer id) {
-        this.dataSource.remove(this.porId(id));
     }
 
     @Override
@@ -61,16 +30,6 @@ public class ClienteListRepositorio implements OrdenablePaginableCrudRepositorio
             return resultado;
         });
         return listaOrdenada;
-    }
-
-    @Override
-    public List<Cliente> listar(int desde, int hasta) {
-        return dataSource.subList(desde, hasta);
-    }
-
-    @Override
-    public int total() {
-        return this.dataSource.size();
     }
 
     public static int ordenar(String campo, Cliente a, Cliente b) {

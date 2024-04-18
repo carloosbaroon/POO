@@ -2,13 +2,14 @@ package org.cbaron.interfaces;
 
 import org.cbaron.interfaces.modelo.Cliente;
 import org.cbaron.interfaces.repositorio.*;
+import org.cbaron.interfaces.repositorio.lista.ClienteListRepositorio;
 
 import java.util.List;
 
 public class EjemploRepositorio {
     public static void main(String[] args) {
 
-        OrdenablePaginableCrudRepositorio repositorio = new ClienteListRepositorio();
+        OrdenablePaginableCrudRepositorio<Cliente> repositorio = new ClienteListRepositorio();
 
         repositorio.crear(new Cliente("John", "Doe"));
         repositorio.crear(new Cliente("Jane", "Test"));
