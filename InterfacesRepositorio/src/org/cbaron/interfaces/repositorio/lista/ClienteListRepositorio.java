@@ -3,6 +3,7 @@ package org.cbaron.interfaces.repositorio.lista;
 import org.cbaron.interfaces.modelo.Cliente;
 import org.cbaron.interfaces.repositorio.AbstractListRepositorio;
 import org.cbaron.interfaces.repositorio.Direccion;
+import org.cbaron.interfaces.repositorio.excepciones.LecturaAccesoDatoExcepcion;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +11,7 @@ import java.util.List;
 public class ClienteListRepositorio extends AbstractListRepositorio<Cliente> {
 
     @Override
-    public void editar(Cliente cliente) {
+    public void editar(Cliente cliente) throws LecturaAccesoDatoExcepcion {
         Cliente clienteActual = this.porId(cliente.getId());
         clienteActual.setNombre(cliente.getNombre());
         clienteActual.setApellido(cliente.getApellido());

@@ -4,6 +4,7 @@ import org.cbaron.interfaces.modelo.Cliente;
 import org.cbaron.interfaces.modelo.Producto;
 import org.cbaron.interfaces.repositorio.AbstractListRepositorio;
 import org.cbaron.interfaces.repositorio.Direccion;
+import org.cbaron.interfaces.repositorio.excepciones.LecturaAccesoDatoExcepcion;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +12,7 @@ import java.util.List;
 public class ProductoListRepositorio extends AbstractListRepositorio<Producto> {
 
     @Override
-    public void editar(Producto producto) {
+    public void editar(Producto producto) throws LecturaAccesoDatoExcepcion {
         Producto p = porId(producto.getId());
         p.setDescripcion(producto.getDescripcion());
         p.setPrecio(producto.getPrecio());
