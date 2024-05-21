@@ -5,6 +5,7 @@ out/
 !**/src/main/**/out/
 !**/src/test/**/out/
 *.iml
+HELP.md
 
 ### Eclipse ###
 .apt_generated
@@ -30,3 +31,7 @@ bin/
 
 ### Mac OS ###
 .DS_Store
+spring-boot-web-example/.mvn/wrapper/maven-wrapper.properties
+
+### Targets ###
+spring-boot-web-example/target/
