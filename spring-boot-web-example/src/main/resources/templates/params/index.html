@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Eviar parametros del request HTTP GET - URL</title>
+</head>
+<body>
+<h1>Eviar parametros del request HTTP GET - URL</h1>
+<ul>
+    <li>
+        <!-- Here we are doing the following in the browser: http://localhost:8080/params/string?texto=Hola%Carlos
+             Basically just calling the method controller: public String param and passing the values using (texto='')-->
+        <a th:href="@{/params/string(texto='Hola Carlos')}">/params/string?texto=Hola Carlos</a>
+    </li>
+    <li>
+        <a th:href="@{/params/string(texto='Hola Aleph')}">/params/string?texto=Hola Aleph</a>
+    </li>
+
+    <li>
+        <a th:href="@{/params/mix-params(saludo='Como estas Aleph', numero=7)}">/params/mix-params?saludo=Como estas Aleph&numero=7</a>
+    </li>
+
+    <li>
+        <a th:href="@{/params/mix-params-request(saludo='Como estas Aleph', numero=7)}">/params/mix-params-request?saludo=Como estas Aleph&numero=7</a>
+    </li>
+</ul>
+</body>
+</html>
