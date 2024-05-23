@@ -10,7 +10,8 @@ public class HomeController {
     public String home(){
         //This will "reset" our URL and redirect to /app/index
         return "redirect:/app/index";
-        //This will not "reset" our URL and redirect to /app/index and will not allow us to forward to the "internet"
+        //This will not "reset" our URL and redirect to /app/index and will not allow us to forward to the "internet",
+        //only our own controllers
         //return "forward:/app/index";
     }
 }
