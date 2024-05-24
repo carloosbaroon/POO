@@ -31,7 +31,8 @@ bin/
 
 ### Mac OS ###
 .DS_Store
-spring-boot-web-example/.mvn/wrapper/maven-wrapper.properties
+*/.mvn/
 
 ### Targets ###
-spring-boot-web-example/target/
+*/target/
+
