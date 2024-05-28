@@ -13,7 +13,7 @@ public class IndexController {
     //To inject an object that is registered in Spring's container
     @Autowired
     //@Qualifier will allow us to inject a service with its own name
-    @Qualifier("miServicioComplejo")
+    @Qualifier("miServicioSimple")
     private IServicio servicio;
 
     //We can omit the @Autowired annotation only in the constructor
