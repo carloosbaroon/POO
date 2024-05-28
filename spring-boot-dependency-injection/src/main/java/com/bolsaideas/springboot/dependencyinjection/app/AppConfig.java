@@ -5,9 +5,9 @@
 
 package com.bolsaideas.springboot.dependencyinjection.app;
 
-import com.bolsaideas.springboot.dependencyinjection.app.services.IServicio;
-import com.bolsaideas.springboot.dependencyinjection.app.services.MiServicio;
-import com.bolsaideas.springboot.dependencyinjection.app.services.MiServicioComplejo;
+import com.bolsaideas.springboot.dependencyinjection.app.models.services.IServicio;
+import com.bolsaideas.springboot.dependencyinjection.app.models.services.MiServicio;
+import com.bolsaideas.springboot.dependencyinjection.app.models.services.MiServicioComplejo;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;

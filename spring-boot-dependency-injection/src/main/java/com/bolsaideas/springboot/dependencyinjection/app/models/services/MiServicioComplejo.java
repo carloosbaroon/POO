@@ -1,6 +1,4 @@
-package com.bolsaideas.springboot.dependencyinjection.app.services;
-
-import org.springframework.stereotype.Component;
+package com.bolsaideas.springboot.dependencyinjection.app.models.services;
 
 //This is a singleton and will allow us to inject into other components of our system
 //This class will be a service -> business logic (DB, API REST, ETC)

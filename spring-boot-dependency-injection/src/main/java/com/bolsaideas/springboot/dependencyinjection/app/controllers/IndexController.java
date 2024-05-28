@@ -1,6 +1,6 @@
 package com.bolsaideas.springboot.dependencyinjection.app.controllers;
 
-import com.bolsaideas.springboot.dependencyinjection.app.services.IServicio;
+import com.bolsaideas.springboot.dependencyinjection.app.models.services.IServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
