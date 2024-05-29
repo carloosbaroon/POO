@@ -6,12 +6,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.annotation.ApplicationScope;
+import org.springframework.web.context.annotation.RequestScope;
+import org.springframework.web.context.annotation.SessionScope;
 
+import java.io.Serializable;
 import java.util.List;
 
 //THIS IS A POJO
 @Component
-public class Factura {
+//By default, the scope is singleton, here we change it to request
+//This means that each user that does a request, will have a different "Factura"
+@RequestScope
+//@SessionScope
+//Similar to singleton, but it gets saves in the servlet context
+//@ApplicationScope
+public class Factura implements Serializable {
 
     @Value("${factura.descripcion}")
     private String descripcion;
@@ -25,7 +35,7 @@ public class Factura {
     @PostConstruct
     public void inicializar(){
         this.cliente.setNombre(cliente.getNombre().concat(" ").concat("Post"));
-        this.descripcion = this.descripcion.concat("PostContruct");
+        this.descripcion = this.descripcion.concat("del cliente: ").concat(this.cliente.getNombre());
 
     }
 
