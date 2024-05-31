@@ -1,20 +1,29 @@
 package com.bolsaideas.springboot.form.app.controllers;
 
 import com.bolsaideas.springboot.form.app.models.domain.Usuario;
+import com.bolsaideas.springboot.form.app.validation.UsuarioValidator;
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 
 @Controller
 //This will allow us to get values that are not in the form for the post (Usuario.id)
 @SessionAttributes("usuario")
 public class FormController {
+
+    @Autowired
+    private UsuarioValidator validator;
+
+    //This will allow us to validate from the @Valid
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+        binder.addValidators(validator);
+    }
 
     //To load the info into the form/browser
     @GetMapping("/form")
@@ -32,6 +41,8 @@ public class FormController {
     //We can map the "usuario" with the form since it has the exact same attributes in the class and form.html
     //@Valid validates the attributes of "usuario" and BindingResult will provide us the result of that validation
     public String procesar(@Valid Usuario usuario, BindingResult result, Model model, SessionStatus status){
+
+        //validator.validate(usuario, result);
 
         model.addAttribute("titulo", "Resultado del form");
 
