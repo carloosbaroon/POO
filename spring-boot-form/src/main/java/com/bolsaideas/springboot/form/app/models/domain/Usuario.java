@@ -2,12 +2,14 @@ package com.bolsaideas.springboot.form.app.models.domain;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
 //This is an entity or POJO
 //We mustn't inject these values
 public class Usuario {
 
+    @Pattern(regexp = "[0-9]{2}[.][0-9]{3}[.][0-9]{3}[-][A-Z]{1}")
     private String id;
 
     //This attributes should match the ones in our views (html)
