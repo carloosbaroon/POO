@@ -1,5 +1,6 @@
 package com.bolsaideas.springboot.form.app.models.domain;
 
+import com.bolsaideas.springboot.form.app.validation.IdentificadorRegex;
 import jakarta.validation.constraints.*;
 
 //This is an entity or POJO
@@ -7,6 +8,7 @@ import jakarta.validation.constraints.*;
 public class Usuario {
 
     //@Pattern(regexp = "[0-9]{2}[.][0-9]{3}[.][0-9]{3}[-][A-Z]{1}")
+    @IdentificadorRegex
     private String id;
 
     //This attributes should match the ones in our views (html)
