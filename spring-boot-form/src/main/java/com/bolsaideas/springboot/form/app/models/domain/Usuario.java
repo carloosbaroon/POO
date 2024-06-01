@@ -32,6 +32,11 @@ public class Usuario {
     @Email
     private String email;
 
+    @NotNull
+    @Min(5)
+    @Max(9999)
+    private Integer cuenta;
+
     public String getId() {
         return id;
     }
@@ -78,5 +83,13 @@ public class Usuario {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Integer getCuenta() {
+        return cuenta;
+    }
+
+    public void setCuenta(Integer cuenta) {
+        this.cuenta = cuenta;
     }
 }
