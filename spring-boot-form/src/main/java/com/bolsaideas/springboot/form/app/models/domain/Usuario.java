@@ -1,6 +1,7 @@
 package com.bolsaideas.springboot.form.app.models.domain;
 
 import com.bolsaideas.springboot.form.app.validation.IdentificadorRegex;
+import com.bolsaideas.springboot.form.app.validation.Requerido;
 import jakarta.validation.constraints.*;
 
 //This is an entity or POJO
@@ -13,9 +14,11 @@ public class Usuario {
 
     //This attributes should match the ones in our views (html)
     //@NotEmpty(message = "nombre can not be empty")
+    @Requerido
     private String nombre;
 
-    @NotBlank
+    //@NotBlank
+    @Requerido
     private String apellido;
 
     @NotBlank
