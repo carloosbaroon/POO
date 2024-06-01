@@ -3,6 +3,9 @@ package com.bolsaideas.springboot.form.app.models.domain;
 import com.bolsaideas.springboot.form.app.validation.IdentificadorRegex;
 import com.bolsaideas.springboot.form.app.validation.Requerido;
 import jakarta.validation.constraints.*;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.util.Date;
 
 //This is an entity or POJO
 //We mustn't inject these values
@@ -36,6 +39,11 @@ public class Usuario {
     @Min(5)
     @Max(9999)
     private Integer cuenta;
+
+    @NotNull
+    @Past
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date fechaNacimiento;
 
     public String getId() {
         return id;
@@ -91,5 +99,13 @@ public class Usuario {
 
     public void setCuenta(Integer cuenta) {
         this.cuenta = cuenta;
+    }
+
+    public Date getFechaNacimiento() {
+        return fechaNacimiento;
+    }
+
+    public void setFechaNacimiento(Date fechaNacimiento) {
+        this.fechaNacimiento = fechaNacimiento;
     }
 }
