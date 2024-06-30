@@ -14,9 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Controller
 //This will allow us to get values that are not in the form for the post (Usuario.id)
@@ -45,6 +43,19 @@ public class FormController {
     @ModelAttribute("paises")
     public List<String> paises(){
         return Arrays.asList("España", "Mexico", "Chile", "Argentina", "Colombia");
+    }
+
+    //"paisesMap" is how we are sending it to the View
+    @ModelAttribute("paisesMap")
+    public Map<String, String> paisesMap(){
+        Map<String, String> paisesMap = new HashMap<String, String>();
+        paisesMap.put("ES", "España");
+        paisesMap.put("MX", "Mexico");
+        paisesMap.put("CL", "Chile");
+        paisesMap.put("AR", "Argentina");
+        paisesMap.put("CO", "Colombia");
+
+        return paisesMap;
     }
 
 
