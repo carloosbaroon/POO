@@ -1,6 +1,7 @@
 package com.bolsaideas.springboot.form.app.controllers;
 
 import com.bolsaideas.springboot.form.app.editors.NombreMayusculaEditor;
+import com.bolsaideas.springboot.form.app.editors.PaisPropertyEditor;
 import com.bolsaideas.springboot.form.app.models.domain.Pais;
 import com.bolsaideas.springboot.form.app.models.domain.Usuario;
 import com.bolsaideas.springboot.form.app.services.PaisService;
@@ -29,6 +30,9 @@ public class FormController {
     @Autowired
     private PaisService paisService;
 
+    @Autowired
+    private PaisPropertyEditor paisEditor;
+
     //This will allow us to validate from the @Valid
     @InitBinder
     public void initBinder(WebDataBinder binder) {
@@ -42,6 +46,8 @@ public class FormController {
         //Using our own filter
         binder.registerCustomEditor(String.class, "nombre" ,new NombreMayusculaEditor());
         binder.registerCustomEditor(String.class, "apellido" ,new NombreMayusculaEditor());
+
+        binder.registerCustomEditor(Pais.class, "pais" ,paisEditor);
     }
 
     //"paises" is how we are sending it to the View
