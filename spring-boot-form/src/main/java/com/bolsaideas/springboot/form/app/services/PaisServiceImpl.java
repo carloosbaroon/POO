@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class PaisServiceImpl implements PaisService {
@@ -26,7 +27,7 @@ public class PaisServiceImpl implements PaisService {
     }
 
     @Override
-    public Pais buscar(Integer id) {
+    public Pais obtenerPorId(Integer id) {
         Pais resultado = null;
         for (Pais pais : this.lista) {
             if (pais.getId().equals(id)) {

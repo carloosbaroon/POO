@@ -7,5 +7,5 @@ import java.util.List;
 public interface PaisService {
 
     public List<Pais> listar();
-    public Pais buscar(Integer id);
+    public Pais obtenerPorId(Integer id);
 }
