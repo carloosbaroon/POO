@@ -56,6 +56,16 @@ public class FormController {
         return paisService.listar();
     }
 
+    @ModelAttribute("listaRolesString")
+    public List<String> listaRolesString(){
+        List<String> roles = new ArrayList<>();
+        roles.add("ROLE_ADMIN");
+        roles.add("ROLE_USER");
+        roles.add("ROLE_MODERATOR");
+
+        return roles;
+    }
+
     //"paises" is how we are sending it to the View
     @ModelAttribute("paises")
     public List<String> paises(){

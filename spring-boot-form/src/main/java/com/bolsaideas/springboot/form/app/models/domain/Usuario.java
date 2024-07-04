@@ -7,6 +7,7 @@ import jakarta.validation.constraints.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
+import java.util.List;
 
 //This is an entity or POJO
 //We mustn't inject these values
@@ -48,6 +49,9 @@ public class Usuario {
 
     @NotNull
     private Pais pais;
+
+    @NotEmpty
+    private List<String> roles;
 
     public String getId() {
         return id;
@@ -119,5 +123,13 @@ public class Usuario {
 
     public void setPais(Pais pais) {
         this.pais = pais;
+    }
+
+    public @NotEmpty List<String> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(@NotEmpty List<String> roles) {
+        this.roles = roles;
     }
 }
