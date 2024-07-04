@@ -2,9 +2,12 @@ package com.bolsaideas.springboot.form.app.controllers;
 
 import com.bolsaideas.springboot.form.app.editors.NombreMayusculaEditor;
 import com.bolsaideas.springboot.form.app.editors.PaisPropertyEditor;
+import com.bolsaideas.springboot.form.app.editors.RolesEditor;
 import com.bolsaideas.springboot.form.app.models.domain.Pais;
+import com.bolsaideas.springboot.form.app.models.domain.Role;
 import com.bolsaideas.springboot.form.app.models.domain.Usuario;
 import com.bolsaideas.springboot.form.app.services.PaisService;
+import com.bolsaideas.springboot.form.app.services.RoleService;
 import com.bolsaideas.springboot.form.app.validation.UsuarioValidator;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +36,12 @@ public class FormController {
     @Autowired
     private PaisPropertyEditor paisEditor;
 
+    @Autowired
+    private RoleService roleService;
+
+    @Autowired
+    private RolesEditor rolesEditor;
+
     //This will allow us to validate from the @Valid
     @InitBinder
     public void initBinder(WebDataBinder binder) {
@@ -48,6 +57,12 @@ public class FormController {
         binder.registerCustomEditor(String.class, "apellido" ,new NombreMayusculaEditor());
 
         binder.registerCustomEditor(Pais.class, "pais" ,paisEditor);
+        binder.registerCustomEditor(Role.class, "roles" ,rolesEditor);
+    }
+
+    @ModelAttribute("listaRoles")
+    public List<Role> listaRoles() {
+        return this.roleService.listar();
     }
 
     //"paises" is how we are sending it to the View
