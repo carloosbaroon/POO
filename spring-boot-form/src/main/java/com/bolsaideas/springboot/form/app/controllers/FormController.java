@@ -66,6 +66,16 @@ public class FormController {
         return roles;
     }
 
+    @ModelAttribute("listaRolesMap")
+    public Map<String, String> listaRolesMap(){
+        Map<String, String> roles = new HashMap<String, String>();
+        roles.put("ROLE_ADMIN", "Administrador");
+        roles.put("ROLE_USER", "Usuario");
+        roles.put("ROLE_MODERATOR", "Moderador");
+
+        return roles;
+    }
+
     //"paises" is how we are sending it to the View
     @ModelAttribute("paises")
     public List<String> paises(){
