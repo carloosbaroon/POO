@@ -53,6 +53,8 @@ public class Usuario {
     @NotEmpty
     private List<Role> roles;
 
+    private Boolean habilitar;
+
     public String getId() {
         return id;
     }
@@ -131,5 +133,13 @@ public class Usuario {
 
     public void setRoles(@NotEmpty List<Role> roles) {
         this.roles = roles;
+    }
+
+    public Boolean getHabilitar() {
+        return habilitar;
+    }
+
+    public void setHabilitar(Boolean habilitar) {
+        this.habilitar = habilitar;
     }
 }
