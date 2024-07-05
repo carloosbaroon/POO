@@ -55,6 +55,9 @@ public class Usuario {
 
     private Boolean habilitar;
 
+    @NotEmpty
+    private String genero;
+
     public String getId() {
         return id;
     }
@@ -141,5 +144,13 @@ public class Usuario {
 
     public void setHabilitar(Boolean habilitar) {
         this.habilitar = habilitar;
+    }
+
+    public @NotEmpty String getGenero() {
+        return genero;
+    }
+
+    public void setGenero(@NotEmpty String genero) {
+        this.genero = genero;
     }
 }
