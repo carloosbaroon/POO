@@ -38,4 +38,10 @@ public class Pais {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
+
+    //We do this so ThymeLeaf can compare the th:value="${pais.id} instead of the complete object Pais
+    @Override
+    public String toString() {
+        return this.id.toString();
+    }
 }
