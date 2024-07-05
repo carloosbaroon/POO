@@ -124,6 +124,7 @@ public class FormController {
         usuario.setApellido("Baron");
         usuario.setId("123.456.789-K");
         usuario.setHabilitar(true);
+        usuario.setValorSecreto("Valor secreto");
         model.addAttribute("titulo", "Formulario usuarios");
         model.addAttribute("usuario", usuario);
         return "form";
