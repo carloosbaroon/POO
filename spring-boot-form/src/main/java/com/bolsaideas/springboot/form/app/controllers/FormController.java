@@ -12,6 +12,7 @@ import com.bolsaideas.springboot.form.app.validation.UsuarioValidator;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -135,19 +136,28 @@ public class FormController {
     @PostMapping("/form")
     //We can map the "usuario" with the form since it has the exact same attributes in the class and form.html
     //@Valid validates the attributes of "usuario" and BindingResult will provide us the result of that validation
-    public String procesar(@Valid Usuario usuario, BindingResult result, Model model, SessionStatus status){
+    public String procesar(@Valid Usuario usuario, BindingResult result, Model model){
 
         //validator.validate(usuario, result);
-
-        model.addAttribute("titulo", "Resultado del form");
 
         //Here we are passing also the Class Usuario but with lower case -> "usuario" to the view form.html -> th:object="${usuario}"
         //If we want to use a different name, we should use @ModelAttribute("user") and change it also in the view
         if (result.hasErrors()) {
+            model.addAttribute("titulo", "Resultado del form");
             return "form";
         }
 
-        model.addAttribute("usuario", usuario);
+        return "redirect:/ver";
+    }
+
+    @GetMapping("/ver")
+    //With @SessionAttribute("usuario") we don't need to send it to the view since it's already in the SessionAtribute
+    public String ver(@SessionAttribute(name = "usuario", required = false) Usuario usuario, Model model, SessionStatus status) {
+        if (usuario == null) {
+            return "redirect:/form";
+        }
+        
+        model.addAttribute("titulo", "Resultado del form");
         status.setComplete();
         return "resultado";
     }
