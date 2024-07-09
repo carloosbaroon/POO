@@ -19,6 +19,10 @@ public class TiempoTranscurridoInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
+        if (request.getMethod().equalsIgnoreCase("post")) {
+            return true;
+        }
+
         //Obtain method's controller we are intercepting
         if (handler instanceof HandlerMethod) {
             HandlerMethod metodo = (HandlerMethod) handler;
@@ -40,16 +44,19 @@ public class TiempoTranscurridoInterceptor implements HandlerInterceptor {
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
 
-        long tiempoFinal = System.currentTimeMillis();
-        long tiempoInicio = (Long) request.getAttribute("tiempoInicial");
-        long tiempoTrancurrido = tiempoFinal - tiempoInicio;
+        if (!request.getMethod().equalsIgnoreCase("post")) {
 
-        //This validation is very important!!! (Can be either/both one of these below)
-        if (handler instanceof HandlerMethod && modelAndView != null) {
-            modelAndView.addObject("tiempoTrancurrido", tiempoTrancurrido);
+            long tiempoFinal = System.currentTimeMillis();
+            long tiempoInicio = (Long) request.getAttribute("tiempoInicial");
+            long tiempoTrancurrido = tiempoFinal - tiempoInicio;
+
+            //This validation is very important!!! (Can be either/both one of these below)
+            if (handler instanceof HandlerMethod && modelAndView != null) {
+                modelAndView.addObject("tiempoTrancurrido", tiempoTrancurrido);
+            }
+
+            logger.info("Tiempo transcurrido: " + tiempoTrancurrido);
+            logger.info("TiempoTranscurridoInterceptor: postHandle() saliendo...");
         }
-
-        logger.info("Tiempo transcurrido: " + tiempoTrancurrido);
-        logger.info("TiempoTranscurridoInterceptor: postHandle() saliendo...");
     }
 }
