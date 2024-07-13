@@ -9,7 +9,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Calendar;
 
-@Component
+@Component("horarioInterceptor")
 public class HorarioInterceptor implements HandlerInterceptor {
 
     @Value("${config.horario.apertura}")
@@ -25,7 +25,7 @@ public class HorarioInterceptor implements HandlerInterceptor {
 
         if (hora >= apertura && hora < cierre) {
             StringBuilder mensaje = new StringBuilder("Bienvenido al horario de atencion a clientes");
-            mensaje.append(", Atendemos desde las");
+            mensaje.append(", Atendemos desde las ");
             mensaje.append(apertura);
             mensaje.append(" y cerramos a las");
             mensaje.append(cierre);
