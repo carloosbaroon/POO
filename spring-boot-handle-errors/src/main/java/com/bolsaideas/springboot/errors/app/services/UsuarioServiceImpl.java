@@ -1,4 +1,4 @@
-package com.bolsaideas.springboot.errors.services;
+package com.bolsaideas.springboot.errors.app.services;
 
 import com.bolsaideas.springboot.errors.app.models.domain.Usuario;
 import org.springframework.stereotype.Service;
