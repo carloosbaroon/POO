@@ -1,5 +1,6 @@
 package com.bolsaideas.springboot.errors.app.controllers;
 
+import com.bolsaideas.springboot.errors.app.erros.UsuarioNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -28,5 +29,15 @@ public class ErrorHandlerController {
         model.addAttribute("timestamp", new Date());
         //Here we could use the "generic" template
         return "error/number-format";
+    }
+
+    @ExceptionHandler(UsuarioNotFoundException.class)
+    public String usuarioNotFound(UsuarioNotFoundException ex, Model model){
+        model.addAttribute("error", "Usuario no encontrado");
+        model.addAttribute("message", ex.getMessage());
+        model.addAttribute("status", HttpStatus.INTERNAL_SERVER_ERROR.value());
+        model.addAttribute("timestamp", new Date());
+        //Here we could use the "generic" template
+        return "error/generic";
     }
 }
