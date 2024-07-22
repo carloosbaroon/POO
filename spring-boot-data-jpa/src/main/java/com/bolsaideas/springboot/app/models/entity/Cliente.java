@@ -1,6 +1,7 @@
 package com.bolsaideas.springboot.app.models.entity;
 
 import jakarta.persistence.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -26,12 +27,13 @@ public class Cliente implements Serializable {
 
     @Column(name = "create_at")
     @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date createAt;
 
-    @PrePersist
+    /*@PrePersist
     public void prePersist() {
         this.createAt = new Date();
-    }
+    }*/
 
     public Long getId() {
         return id;
