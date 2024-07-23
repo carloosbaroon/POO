@@ -1,6 +1,8 @@
 package com.bolsaideas.springboot.app.models.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
+
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
@@ -21,10 +23,16 @@ public class Cliente implements Serializable {
 
     //So we can customize the name of the field in the DB
     // @Column(name = "nombre_cliente", length = "")
+    @NotEmpty
+    @Size(min = 3, max = 12)
     private String nombre;
+    @NotEmpty
     private String apellido;
+    @NotEmpty
+    @Email
     private String email;
 
+    @NotNull
     @Column(name = "create_at")
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
