@@ -1,7 +1,7 @@
 package com.bolsaideas.springboot.app.controllers;
 
-import com.bolsaideas.springboot.app.models.dao.IClienteDao;
 import com.bolsaideas.springboot.app.models.entity.Cliente;
+import com.bolsaideas.springboot.app.models.service.IClienteService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -18,14 +18,14 @@ import java.util.Map;
 public class ClienteController {
 
     @Autowired
-    @Qualifier("clienteDaoJPA")
-    private IClienteDao clienteDao;
+    @Qualifier("clienteDaoService")
+    private IClienteService clienteService;
 
     @GetMapping(value = "/listar")
     public String listar(Model model) {
 
         model.addAttribute("titulo", "Listado de clientes");
-        model.addAttribute("clientes", clienteDao.findAll());
+        model.addAttribute("clientes", clienteService.findAll());
         return "listar";
     }
 
@@ -44,7 +44,7 @@ public class ClienteController {
         Cliente cliente = null;
 
         if (id > 0) {
-            cliente = clienteDao.findOne(id);
+            cliente = clienteService.findOne(id);
         } else {
             return "redirect:/listar";
         }
@@ -64,7 +64,7 @@ public class ClienteController {
             model.addAttribute("titulo", "Formulario de Cliente");
             return "form";
         }
-        clienteDao.save(cliente);
+        clienteService.save(cliente);
         status.setComplete();
         return "redirect:listar";
     }
@@ -73,7 +73,7 @@ public class ClienteController {
     public String eliminar(@PathVariable(value = "id") Long id) {
 
         if (id > 0) {
-            clienteDao.delete(id);
+            clienteService.delete(id);
         }
         return "redirect:/listar";
 
