@@ -22,14 +22,15 @@ public class ClienteController {
     private IClienteDao clienteDao;
 
     @GetMapping(value = "/listar")
-    public String listar(Model model){
+    public String listar(Model model) {
+
         model.addAttribute("titulo", "Listado de clientes");
         model.addAttribute("clientes", clienteDao.findAll());
         return "listar";
     }
 
     @GetMapping(value = "/form")
-    public String crear(Map<String, Object> model){
+    public String crear(Map<String, Object> model) {
 
         Cliente cliente = new Cliente();
         model.put("cliente", cliente);
@@ -38,7 +39,7 @@ public class ClienteController {
     }
 
     @GetMapping(value = "/form/{id}")
-    public String editar(@PathVariable(value = "id") Long id, Map<String, Object> model){
+    public String editar(@PathVariable(value = "id") Long id, Map<String, Object> model) {
 
         Cliente cliente = null;
 
@@ -50,7 +51,6 @@ public class ClienteController {
 
         model.put("cliente", cliente);
         model.put("titulo", "Editar Cliente");
-
         return "form";
     }
 
@@ -58,13 +58,24 @@ public class ClienteController {
     //We need to use @Valid to enable the validations in Cliente
     //We use ModelAttribute to send the object Cliente to the view, in this case we shouldn't do it
     // since it's named "Cliente" in crear(), this is just in case it's named different
-    public String guardar(@Valid @ModelAttribute("cliente") Cliente cliente, BindingResult result, Model model, SessionStatus status){
-        if (result.hasErrors()){
+    public String guardar(@Valid @ModelAttribute("cliente") Cliente cliente, BindingResult result, Model model, SessionStatus status) {
+
+        if (result.hasErrors()) {
             model.addAttribute("titulo", "Formulario de Cliente");
             return "form";
         }
         clienteDao.save(cliente);
         status.setComplete();
         return "redirect:listar";
+    }
+
+    @GetMapping(value = "/eliminar/{id}")
+    public String eliminar(@PathVariable(value = "id") Long id) {
+
+        if (id > 0) {
+            clienteDao.delete(id);
+        }
+        return "redirect:/listar";
+
     }
 }
