@@ -6,6 +6,7 @@ out/
 !**/src/test/**/out/
 *.iml
 HELP.md
+.editorconfig
 
 ### Eclipse ###
 .apt_generated
@@ -36,3 +37,18 @@ bin/
 ### Targets ###
 */target/
 
+### Angular ###
+
+# Compiled output
+*/*/dist/
+*/*/tmp/
+*/*/out-tsc/
+*/*/bazel-out/
+*/*/.angular/
+
+
+# Node
+*/*/node_modules/
+*/*/npm-debug.log
+*/*/yarn-error.log
+*/*/package-lock.json
