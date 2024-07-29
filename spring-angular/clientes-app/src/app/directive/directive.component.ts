@@ -17,7 +17,7 @@ export class DirectiveComponent {
   habilitar: boolean = true;
 
   setHabilitar(): void {
-    this.habilitar = this.habilitar? false: true
+    this.habilitar = !this.habilitar
   }
 
 }
