@@ -16,8 +16,4 @@ import {DirectiveComponent} from "./directive/directive.component";
 export class AppComponent {
   title = 'Bienvenido a Angular';
   curso = 'Curso Spring con Angular';
-
-  setHabilitar(): void {
-    this.habilitar = (habilitar == true)? false: true
-  }
 }
