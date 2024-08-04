@@ -2,12 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { NgForOf } from '@angular/common';
 import { Cliente } from './cliente';
 import { ClienteService } from './cliente.service';
+import { RouterLink } from "@angular/router";
 
 @Component({
   selector: 'app-clientes',
   standalone: true,
   imports: [
-    NgForOf
+    NgForOf,
+    RouterLink
   ],
   templateUrl: './clientes.component.html',
 })
