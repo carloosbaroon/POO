@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForOf } from '@angular/common';
+import {NgForOf, NgIf} from '@angular/common';
 import { Cliente } from './cliente';
 import { ClienteService } from './cliente.service';
 import { RouterLink } from "@angular/router";
@@ -10,7 +10,8 @@ import Swal from "sweetalert2";
   standalone: true,
   imports: [
     NgForOf,
-    RouterLink
+    RouterLink,
+    NgIf
   ],
   templateUrl: './clientes.component.html',
 })
