@@ -3,6 +3,7 @@ package com.bolsaideas.springangular.backend.apirest.services;
 import com.bolsaideas.springangular.backend.apirest.models.dao.IClienteDao;
 import com.bolsaideas.springangular.backend.apirest.models.entity.Cliente;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -35,6 +36,10 @@ public class ClienteServiceImpl implements IClienteService{
     @Override
     @Transactional
     public void delete(Long id) {
-        clienteDao.deleteById(id);
+        if (clienteDao.existsById(id)) {
+            clienteDao.deleteById(id);
+        } else {
+            throw new EmptyResultDataAccessException("Cliente not found with ID: ".concat(String.valueOf(id)), 1);
+        }
     }
 }
