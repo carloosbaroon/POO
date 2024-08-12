@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Cliente } from "./cliente";
 import { CLIENTES } from "./clientes.json";
-import {catchError, Observable, throwError} from "rxjs";
+import {catchError, map, Observable, throwError} from "rxjs";
 import Swal from "sweetalert2";
 import {Router} from "@angular/router";
 
@@ -24,7 +24,8 @@ export class ClienteService {
   }
 
   create(cliente: Cliente): Observable<Cliente> {
-    return this.http.post<Cliente>(this.urlEndPoint, cliente, {headers: this.httpHeaders}).pipe(
+    return this.http.post(this.urlEndPoint, cliente, {headers: this.httpHeaders}).pipe(
+      map((response: any) => response.cliente as Cliente),
       catchError(e => {
         console.error(e.error.mensaje);
         Swal.fire(e.error.mensaje, e.error.error, 'error');
@@ -44,8 +45,8 @@ export class ClienteService {
     );
   }
 
-  public update(cliente: Cliente): Observable<Cliente>{
-    return this.http.put<Cliente>(`${this.urlEndPoint}/${cliente.id}`, cliente, {headers: this.httpHeaders}).pipe(
+  public update(cliente: Cliente): Observable<any>{
+    return this.http.put<any>(`${this.urlEndPoint}/${cliente.id}`, cliente, {headers: this.httpHeaders}).pipe(
       catchError(e => {
         console.error(e.error.mensaje);
         Swal.fire(e.error.mensaje, e.error.error, 'error');

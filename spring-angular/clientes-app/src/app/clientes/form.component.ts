@@ -42,18 +42,18 @@ export class FormComponent implements OnInit{
     console.log("Create()");
     console.log(this.cliente)
     this.clienteService.create(this.cliente).subscribe(
-      cliente => {
+      json => {
         this.router.navigate(['/clientes']);
-        Swal.fire('Nuevo cliente', `Cliente: ${cliente.nombre} creado con exito!`, 'success');
+        Swal.fire('Nuevo cliente', `El cliente ${this.cliente.nombre} ha sido creado con exito`, 'success');
       }
     );
   }
 
   public update(): void {
     this.clienteService.update(this.cliente).subscribe(
-      cliente => {
+      json => {
         this.router.navigate(['/clientes']);
-        Swal.fire('Cliente Actualizado', `Cliente: ${cliente.nombre} actualizado con exito`, 'success');
+        Swal.fire('Cliente Actualizado', `${json.mensaje}: ${json.cliente.nombre}`, 'success');
 
       }
     )
