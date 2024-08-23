@@ -1,15 +1,13 @@
 package org.cbaron.java.jdbc;
 
+import org.cbaron.java.jdbc.util.ConexionDB;
+
 import java.sql.*;
 
 public class EjemploJdbc {
     public static void main(String[] args) {
 
-        String url = "jdbc:mysql://localhost:3306/java_curso";
-        String username = "root";
-        String password = "sasa";
-
-        try (Connection connection = DriverManager.getConnection(url, username, password);
+        try (Connection connection = ConexionDB.getInstance();
              Statement stmt = connection.createStatement();
              ResultSet resultSet = stmt.executeQuery("SELECT * FROM productos")) {
 
