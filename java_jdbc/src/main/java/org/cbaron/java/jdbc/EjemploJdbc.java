@@ -13,7 +13,9 @@ public class EjemploJdbc {
         try (Connection connection = ConexionDB.getInstance()) {
 
             Repository<Producto> repository = new ProductoRepositoryImpl();
-            repository.findAll().forEach(producto -> System.out.println(producto.getNombre()));
+            repository.findAll().forEach(System.out::println);
+
+            System.out.println(repository.findById(2L));
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
