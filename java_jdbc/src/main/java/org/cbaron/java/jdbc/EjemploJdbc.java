@@ -1,5 +1,6 @@
 package org.cbaron.java.jdbc;
 
+import org.cbaron.java.jdbc.models.Categoria;
 import org.cbaron.java.jdbc.models.Producto;
 import org.cbaron.java.jdbc.repository.ProductoRepositoryImpl;
 import org.cbaron.java.jdbc.repository.Repository;
@@ -22,9 +23,12 @@ public class EjemploJdbc {
 
             System.out.println("--------------- Insertar nuevo producto ---------------");
             Producto producto = new Producto();
-            producto.setNombre("Collar");
-            producto.setPrecio(499);
+            producto.setNombre("Alimento Perro");
+            producto.setPrecio(1500);
             producto.setFechaRegistro(new Date());
+            Categoria categoria = new Categoria();
+            categoria.setId(1L);
+            producto.setCategoria(categoria);
             repository.save(producto);
             System.out.println("Producto guardado con exito");
             repository.findAll().forEach(System.out::println);
