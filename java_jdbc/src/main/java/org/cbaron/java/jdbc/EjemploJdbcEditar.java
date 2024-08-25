@@ -5,10 +5,11 @@ import org.cbaron.java.jdbc.repository.ProductoRepositoryImpl;
 import org.cbaron.java.jdbc.repository.Repository;
 import org.cbaron.java.jdbc.util.ConexionDB;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.Date;
 
-public class EjemploJdbc {
+public class EjemploJdbcEditar {
     public static void main(String[] args) {
 
         try (Connection connection = ConexionDB.getInstance()) {
@@ -20,14 +21,15 @@ public class EjemploJdbc {
             System.out.println("--------------- Obtener por ID ---------------");
             System.out.println(repository.findById(2L));
 
-            System.out.println("--------------- Insertar nuevo producto ---------------");
+            System.out.println("--------------- Actualizar producto ---------------");
             Producto producto = new Producto();
-            producto.setNombre("Collar");
-            producto.setPrecio(499);
-            producto.setFechaRegistro(new Date());
+            producto.setId(3L);
+            producto.setNombre("Collar Rojo");
+            producto.setPrecio(699);
             repository.save(producto);
-            System.out.println("Producto guardado con exito");
+            System.out.println("Producto actualizado con exito");
             repository.findAll().forEach(System.out::println);
+
 
         } catch (SQLException e) {
             throw new RuntimeException(e);

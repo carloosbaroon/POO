@@ -5,10 +5,10 @@ import org.cbaron.java.jdbc.repository.ProductoRepositoryImpl;
 import org.cbaron.java.jdbc.repository.Repository;
 import org.cbaron.java.jdbc.util.ConexionDB;
 
-import java.sql.*;
-import java.util.Date;
+import java.sql.Connection;
+import java.sql.SQLException;
 
-public class EjemploJdbc {
+public class EjemploJdbcEliminar {
     public static void main(String[] args) {
 
         try (Connection connection = ConexionDB.getInstance()) {
@@ -20,13 +20,9 @@ public class EjemploJdbc {
             System.out.println("--------------- Obtener por ID ---------------");
             System.out.println(repository.findById(2L));
 
-            System.out.println("--------------- Insertar nuevo producto ---------------");
-            Producto producto = new Producto();
-            producto.setNombre("Collar");
-            producto.setPrecio(499);
-            producto.setFechaRegistro(new Date());
-            repository.save(producto);
-            System.out.println("Producto guardado con exito");
+            System.out.println("--------------- Eliminar producto ---------------");
+            repository.delete(13L);
+            System.out.println("Productos eliminados con exito");
             repository.findAll().forEach(System.out::println);
 
         } catch (SQLException e) {

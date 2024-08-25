@@ -75,7 +75,6 @@ public class ProductoRepositoryImpl implements Repository<Producto> {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
     }
 
     @Override
