@@ -15,7 +15,7 @@ public class ProductoRepositoryImpl implements Repository<Producto> {
     }
 
     @Override
-    public List<Producto> findAll() {
+    public List<Producto> findAll() throws SQLException {
         List<Producto> productos = new ArrayList<>();
 
         try (Statement statement = getConnection().createStatement();
@@ -28,15 +28,12 @@ public class ProductoRepositoryImpl implements Repository<Producto> {
                 productos.add(p);
             }
 
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
         }
-
         return productos;
     }
 
     @Override
-    public Producto findById(Long id) {
+    public Producto findById(Long id) throws SQLException {
         Producto producto = null;
 
         try (PreparedStatement preparedStatement = getConnection().
@@ -49,15 +46,12 @@ public class ProductoRepositoryImpl implements Repository<Producto> {
                 }
             }
 
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
         }
-
         return producto;
     }
 
     @Override
-    public void save(Producto producto) {
+    public void save(Producto producto) throws SQLException {
         String sql = null;
         if (producto.getId() != null && producto.getId() > 0) {
             sql = "UPDATE productos SET nombre=?, precio=?  ,categoria_id=?, sku=? WHERE id=?";
@@ -78,20 +72,15 @@ public class ProductoRepositoryImpl implements Repository<Producto> {
             }
 
             preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
         }
     }
 
     @Override
-    public void delete(Long id) {
+    public void delete(Long id) throws SQLException {
         try (PreparedStatement statement = getConnection().prepareStatement("DELETE FROM productos where id=?")) {
             statement.setLong(1, id);
             statement.executeUpdate();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
         }
-
     }
 
     private static Producto crearProducto(ResultSet resultSet) throws SQLException {
