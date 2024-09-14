@@ -11,7 +11,14 @@ public class ProductoRepositorioImpl implements Repositorio<Producto>{
 
     private Connection conn;
 
+    public ProductoRepositorioImpl() {
+    }
+
     public ProductoRepositorioImpl(Connection conn) {
+        this.conn = conn;
+    }
+
+    public void setConn(Connection conn) {
         this.conn = conn;
     }
 
