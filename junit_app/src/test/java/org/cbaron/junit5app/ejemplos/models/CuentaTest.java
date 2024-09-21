@@ -64,7 +64,7 @@ class CuentaTest {
         Cuenta cuenta = new Cuenta("Aleph", new BigDecimal("1000.12345"));
 
         Exception exception = assertThrows(DineroInsuficienteException.class, () -> {
-           cuenta.debito(new BigDecimal(1500));
+            cuenta.debito(new BigDecimal(1500));
         });
 
         String actual = exception.getMessage();
@@ -97,17 +97,16 @@ class CuentaTest {
         banco.setNombre("Banco de Mexico");
         banco.transferir(cuenta2, cuenta1, new BigDecimal(500));
 
-        assertEquals("1000.8989", cuenta2.getSaldo().toPlainString());
-        assertEquals("3000", cuenta1.getSaldo().toPlainString());
-
-        assertEquals(2,banco.getCuentas().size());
-        assertEquals("Banco de Mexico", cuenta1.getBanco().getNombre());
-        assertEquals("Aleph Baron", banco.getCuentas().stream()
-                .filter(c -> c.getPersona().equals("Aleph Baron"))
-                .findFirst()
-                .get().getPersona());
-
-        assertTrue(banco.getCuentas().stream()
-                .anyMatch(c -> c.getPersona().equals("Carlos Baron")));
+        assertAll(() -> assertEquals("1000.8989", cuenta2.getSaldo().toPlainString()),
+                () -> assertEquals("3000", cuenta1.getSaldo().toPlainString()),
+                () -> assertEquals(2, banco.getCuentas().size()),
+                () -> assertEquals("Banco de Mexico", cuenta1.getBanco().getNombre()),
+                () -> assertEquals("Aleph Baron", banco.getCuentas().stream()
+                    .filter(c -> c.getPersona().equals("Aleph Baron"))
+                    .findFirst()
+                    .get().getPersona()),
+                () -> assertTrue(banco.getCuentas().stream()
+                    .anyMatch(c -> c.getPersona().equals("Carlos Baron")))
+        );
     }
 }
