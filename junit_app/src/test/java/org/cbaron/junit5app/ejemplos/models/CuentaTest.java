@@ -11,12 +11,13 @@ class CuentaTest {
 
     @Test
     void testNombreCuenta() {
-        Cuenta cuenta = new Cuenta("Aleph", new BigDecimal("1000.12345"));
+        Cuenta cuenta = new Cuenta("Aleph test", new BigDecimal("1000.12345"));
         String esperado = "Aleph";
         String real = cuenta.getPersona();
 
-        assertEquals(esperado, real);
-        assertTrue(real.equals("Aleph"));
+        assertNotNull(real, () -> "La cuenta no puede ser nula");
+        assertEquals(esperado, real, () -> "El nombre de la cuenta no es el que se esperaba");
+        assertTrue(real.equals("Aleph"), () -> "Nombre de la cuenta esperada debe ser igual a la real");
     }
 
     @Test
