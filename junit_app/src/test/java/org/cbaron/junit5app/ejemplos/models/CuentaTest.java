@@ -11,7 +11,7 @@ class CuentaTest {
 
     @Test
     void testNombreCuenta() {
-        Cuenta cuenta = new Cuenta("Aleph test", new BigDecimal("1000.12345"));
+        Cuenta cuenta = new Cuenta("Aleph", new BigDecimal("1000.12345"));
         String esperado = "Aleph";
         String real = cuenta.getPersona();
 
