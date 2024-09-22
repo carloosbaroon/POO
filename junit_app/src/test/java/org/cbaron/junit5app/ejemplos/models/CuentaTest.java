@@ -1,6 +1,8 @@
 package org.cbaron.junit5app.ejemplos.models;
 
 import org.cbaron.junit5app.ejemplos.exceptions.DineroInsuficienteException;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
@@ -10,7 +12,10 @@ import static org.junit.jupiter.api.Assertions.*;
 class CuentaTest {
 
     @Test
+    @Disabled
+    @DisplayName("Probando el nombre de la cuenta corriente!")
     void testNombreCuenta() {
+        fail();
         Cuenta cuenta = new Cuenta("Aleph", new BigDecimal("1000.12345"));
         String esperado = "Aleph";
         String real = cuenta.getPersona();
@@ -21,6 +26,7 @@ class CuentaTest {
     }
 
     @Test
+    @DisplayName("Probando el saldo de la cuenta corriente")
     void testSaldoCuenta() {
         Cuenta cuenta = new Cuenta("Aleph", new BigDecimal("1000.12345"));
 
