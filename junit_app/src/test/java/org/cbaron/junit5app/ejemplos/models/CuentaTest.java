@@ -1,9 +1,7 @@
 package org.cbaron.junit5app.ejemplos.models;
 
 import org.cbaron.junit5app.ejemplos.exceptions.DineroInsuficienteException;
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import java.math.BigDecimal;
 
@@ -11,12 +9,24 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class CuentaTest {
 
+    Cuenta cuenta;
+
+    @BeforeEach
+    void initMetodoTest() {
+        this.cuenta = new Cuenta("Aleph", new BigDecimal("1000.12345"));
+        System.out.println("Iniciando el metodo de prueba");
+    }
+
+    @AfterEach
+    void tearDown() {
+        System.out.println("Finalizando el metodo de prueba");
+    }
+
     @Test
     @Disabled
     @DisplayName("Probando el nombre de la cuenta corriente!")
     void testNombreCuenta() {
         fail();
-        Cuenta cuenta = new Cuenta("Aleph", new BigDecimal("1000.12345"));
         String esperado = "Aleph";
         String real = cuenta.getPersona();
 
@@ -28,8 +38,6 @@ class CuentaTest {
     @Test
     @DisplayName("Probando el saldo de la cuenta corriente")
     void testSaldoCuenta() {
-        Cuenta cuenta = new Cuenta("Aleph", new BigDecimal("1000.12345"));
-
         assertNotNull(cuenta.getSaldo());
         assertEquals(1000.12345, cuenta.getSaldo().doubleValue());
         assertFalse(cuenta.getSaldo().compareTo(BigDecimal.ZERO) < 0);
@@ -46,7 +54,6 @@ class CuentaTest {
 
     @Test
     void testDebitoCuenta() {
-        Cuenta cuenta = new Cuenta("Aleph", new BigDecimal("1000.12345"));
         cuenta.debito(new BigDecimal("100"));
 
         assertNotNull(cuenta.getSaldo());
@@ -57,7 +64,6 @@ class CuentaTest {
 
     @Test
     void testCreditoCuenta() {
-        Cuenta cuenta = new Cuenta("Aleph", new BigDecimal("1000.12345"));
         cuenta.credito(new BigDecimal("100"));
 
         assertNotNull(cuenta.getSaldo());
@@ -68,8 +74,6 @@ class CuentaTest {
 
     @Test
     void testDineroInsuficienteException() {
-        Cuenta cuenta = new Cuenta("Aleph", new BigDecimal("1000.12345"));
-
         Exception exception = assertThrows(DineroInsuficienteException.class, () -> {
             cuenta.debito(new BigDecimal(1500));
         });
