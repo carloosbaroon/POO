@@ -2,8 +2,10 @@ package org.cbaron.junit5app.ejemplos.models;
 
 import org.cbaron.junit5app.ejemplos.exceptions.DineroInsuficienteException;
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.condition.*;
 
 import java.math.BigDecimal;
+import java.util.Properties;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -131,5 +133,61 @@ class CuentaTest {
                 () -> assertTrue(banco.getCuentas().stream()
                     .anyMatch(c -> c.getPersona().equals("Carlos Baron")))
         );
+    }
+
+    @Test
+    @EnabledOnOs(OS.WINDOWS)
+    void testSoloWindows() {
+    }
+
+    @Test
+    @EnabledOnOs({OS.LINUX, OS.MAC})
+    void testSoloLinuxMac() {
+    }
+
+    @Test
+    @DisabledOnOs({OS.LINUX, OS.MAC})
+    void testNoLinuxMac() {
+    }
+
+    @Test
+    @EnabledOnJre(JRE.JAVA_8)
+    void soloJdk8() {
+    }
+
+    @Test
+    @EnabledOnJre(JRE.JAVA_17)
+    void soloJdk17() {
+    }
+
+    @Test
+    @DisabledOnJre(JRE.JAVA_17)
+    void disable() {
+    }
+
+    @Test
+    void imprimirSystemProperties() {
+        Properties properties = System.getProperties();
+        properties.forEach((key, value) -> System.out.println(key + ":" + value));
+    }
+
+    @Test
+    @EnabledIfSystemProperty(named = "java.version", matches = "17.*")
+    void testJavaVersion() {
+    }
+
+    @Test
+    @DisabledIfSystemProperty(named = "os.arch", matches = ".*64.*")
+    void testDisable64() {
+    }
+
+    @Test
+    @EnabledIfSystemProperty(named = "user.name", matches = "cbaron")
+    void testUsername() {
+    }
+
+    @Test
+    @EnabledIfSystemProperty(named = "ENV", matches = "dev")
+    void testDev() {
     }
 }
