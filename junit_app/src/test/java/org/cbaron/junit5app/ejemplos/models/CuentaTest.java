@@ -136,11 +136,11 @@ class CuentaTest {
                 () -> assertEquals(2, banco.getCuentas().size()),
                 () -> assertEquals("Banco de Mexico", cuenta1.getBanco().getNombre()),
                 () -> assertEquals("Aleph Baron", banco.getCuentas().stream()
-                    .filter(c -> c.getPersona().equals("Aleph Baron"))
-                    .findFirst()
-                    .get().getPersona()),
+                        .filter(c -> c.getPersona().equals("Aleph Baron"))
+                        .findFirst()
+                        .get().getPersona()),
                 () -> assertTrue(banco.getCuentas().stream()
-                    .anyMatch(c -> c.getPersona().equals("Carlos Baron")))
+                        .anyMatch(c -> c.getPersona().equals("Carlos Baron")))
         );
     }
 
