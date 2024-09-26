@@ -5,6 +5,7 @@ import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.condition.*;
 
 import java.math.BigDecimal;
+import java.util.Map;
 import java.util.Properties;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -190,4 +191,22 @@ class CuentaTest {
     @EnabledIfSystemProperty(named = "ENV", matches = "dev")
     void testDev() {
     }
+
+    @Test
+    void imprimirVariablesEnv() {
+        Map<String, String> getenv = System.getenv();
+        getenv.forEach((key, value) -> System.out.println(key + ":" + value));
+    }
+
+    @Test
+    @EnabledIfEnvironmentVariable(named = "JAVA_HOME", matches = "/Users/cbaron/java/jdk-17.0.2.jdk/Contents/Home")
+    void testJavaHome() {
+    }
+
+    @Test
+    @EnabledIfEnvironmentVariable(named = "USER", matches = "cbaron")
+    void testUser() {
+    }
+
+    
 }
