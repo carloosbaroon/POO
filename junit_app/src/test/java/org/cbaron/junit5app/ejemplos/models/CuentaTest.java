@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.Properties;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assumptions.*;
 
 //This will allow us to create all test method in only one instance, so it'll not be stateless!
 //@TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -208,5 +209,26 @@ class CuentaTest {
     void testUser() {
     }
 
-    
+    @Test
+    void testSaldoCuentaDev() {
+        boolean esDev = "DEV".equals(System.getProperty("ENV"));
+
+        assumeTrue(esDev);
+        assertNotNull(cuenta.getSaldo());
+        assertEquals(1000.12345, cuenta.getSaldo().doubleValue());
+        assertFalse(cuenta.getSaldo().compareTo(BigDecimal.ZERO) < 0);
+        assertTrue(cuenta.getSaldo().compareTo(BigDecimal.ZERO) > 0);
+    }
+
+    @Test
+    void testSaldoCuentaDev2() {
+        boolean esDev = "DEV".equals(System.getProperty("ENV"));
+        //This will execute the method, but only the block inside the assumingThat will be "ignored"
+        assumingThat(esDev, () -> {
+            assertNotNull(cuenta.getSaldo());
+            assertEquals(1000.12345, cuenta.getSaldo().doubleValue());
+        });
+        assertFalse(cuenta.getSaldo().compareTo(BigDecimal.ZERO) < 0);
+        assertTrue(cuenta.getSaldo().compareTo(BigDecimal.ZERO) > 0);
+    }
 }
