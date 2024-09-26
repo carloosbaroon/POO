@@ -3,6 +3,8 @@ package org.cbaron.junit5app.ejemplos.models;
 import org.cbaron.junit5app.ejemplos.exceptions.DineroInsuficienteException;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.condition.*;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import java.math.BigDecimal;
 import java.util.Map;
@@ -264,6 +266,14 @@ class CuentaTest {
         assertNotNull(cuenta.getSaldo());
         assertEquals(900, cuenta.getSaldo().intValue());
         assertEquals("900.12345", cuenta.getSaldo().toPlainString());
+    }
+
+    @ParameterizedTest(name = "numero {index} ejecutando con valor {argumentsWithNames}")
+    @ValueSource(strings = {"100", "200", "500", "700", "1000"})
+    void testDebitoCuenta(String monto) {
+        cuenta.debito(new BigDecimal(monto));
+        assertNotNull(cuenta.getSaldo());
+        assertTrue(cuenta.getSaldo().compareTo(BigDecimal.ZERO) > 0);
 
     }
 }
