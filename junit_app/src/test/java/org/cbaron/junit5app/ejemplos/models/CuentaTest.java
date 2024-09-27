@@ -20,6 +20,8 @@ import static org.junit.jupiter.api.Assumptions.*;
 class CuentaTest {
 
     Cuenta cuenta;
+    private TestInfo testInfo;
+    private TestReporter testReporter;
 
     @BeforeAll
     static void beforeAll() {
@@ -32,9 +34,14 @@ class CuentaTest {
     }
 
     @BeforeEach
-    void initMetodoTest() {
+    void initMetodoTest(TestInfo testInfo, TestReporter testReporter) {
         this.cuenta = new Cuenta("Aleph", new BigDecimal("1000.12345"));
+        this.testInfo = testInfo;
+        this.testReporter = testReporter;
+
         System.out.println("Iniciando el metodo de prueba");
+        testReporter.publishEntry("Ejecutando: " + testInfo.getDisplayName() + " " + testInfo.getTestMethod().orElse(null).getName()
+                + " con la etiquetas " + testInfo.getTags());
     }
 
     @AfterEach
@@ -47,12 +54,18 @@ class CuentaTest {
     @DisplayName("Probando atributos de Cuenta")
     class CuentaTestNombreYSaldo {
         @Test
-        @Disabled
+        //@Disabled
         @DisplayName("Probando el nombre de la cuenta corriente!")
         void testNombreCuenta() {
-            fail();
+            //fail();
             String esperado = "Aleph";
             String real = cuenta.getPersona();
+
+            System.out.println(testInfo.getTags());
+
+            if (testInfo.getTags().contains("cuenta")) {
+                System.out.println("Hacer algo con la etiqueta");
+            }
 
             assertNotNull(real, () -> "La cuenta no puede ser nula");
             assertEquals(esperado, real, () -> "El nombre de la cuenta no es el que se esperaba");
