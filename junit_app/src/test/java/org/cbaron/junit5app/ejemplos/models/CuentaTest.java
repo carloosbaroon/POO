@@ -42,6 +42,7 @@ class CuentaTest {
         System.out.println("Finalizando el metodo de prueba");
     }
 
+    @Tag("cuenta")
     @Nested
     @DisplayName("Probando atributos de Cuenta")
     class CuentaTestNombreYSaldo {
@@ -79,6 +80,7 @@ class CuentaTest {
     @Nested
     class CuentaOperacionesTest {
         @Test
+        @Tag("cuenta")
         void testDebitoCuenta() {
             cuenta.debito(new BigDecimal("100"));
 
@@ -89,6 +91,7 @@ class CuentaTest {
         }
 
         @Test
+        @Tag("cuenta")
         void testCreditoCuenta() {
             cuenta.credito(new BigDecimal("100"));
 
@@ -98,7 +101,10 @@ class CuentaTest {
 
         }
 
+
         @Test
+        @Tag("cuenta")
+        @Tag("banco")
         void testTransferirDineroCuentas() {
             Cuenta cuenta1 = new Cuenta("Aleph Baron", new BigDecimal("2500"));
             Cuenta cuenta2 = new Cuenta("Carlos Baron", new BigDecimal("1500.8989"));
@@ -113,6 +119,8 @@ class CuentaTest {
     }
 
     @Test
+    @Tag("cuenta")
+    @Tag("exception")
     void testDineroInsuficienteException() {
         Exception exception = assertThrows(DineroInsuficienteException.class, () -> {
             cuenta.debito(new BigDecimal(1500));
@@ -122,6 +130,7 @@ class CuentaTest {
         String esperado = "Dinero Insuficiente";
         assertEquals(esperado, actual);
     }
+
 
     @Test
     void testRelacionBancoCuentas() {
@@ -270,6 +279,7 @@ class CuentaTest {
         assertEquals("900.12345", cuenta.getSaldo().toPlainString());
     }
 
+    @Tag("param")
     @Nested
     class PruebasParemetrizadasTest {
         @ParameterizedTest(name = "numero {index} ejecutando con valor {argumentsWithNames}")
@@ -323,6 +333,7 @@ class CuentaTest {
         }
     }
 
+    @Tag("param")
     @ParameterizedTest(name = "numero {index} ejecutando con valor {argumentsWithNames}")
     @MethodSource("montoList")
     void testDebitoCuentaMethodSource(String monto) {
