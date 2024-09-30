@@ -2,6 +2,8 @@ package org.cbaron.appmockito.ejemplos.services;
 
 import org.cbaron.appmockito.ejemplos.models.Examen;
 
+import java.util.Optional;
+
 public interface ExamenService {
-    Examen findExamenPorNumber(String nombre);
+    Optional<Examen> findExamenPorNumber(String nombre);
 }
