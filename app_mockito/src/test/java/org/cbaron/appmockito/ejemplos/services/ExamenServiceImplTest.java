@@ -5,6 +5,11 @@ import org.cbaron.appmockito.ejemplos.repositories.ExamenRepository;
 import org.cbaron.appmockito.ejemplos.repositories.PreguntaRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.mockito.Mockito.*;
 
@@ -15,17 +20,25 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+//This will allow us to extend our Junit test class to use Mockito annotations (Avoid line 37)
+@ExtendWith(MockitoExtension.class)
 class ExamenServiceImplTest {
 
+    @Mock
     ExamenRepository repository;
-    ExamenService service;
+    @Mock
     PreguntaRepository preguntaRepository;
+
+    @InjectMocks
+    ExamenServiceImpl service;
 
     @BeforeEach
     void setUp() {
-        repository = mock(ExamenRepository.class);
-        preguntaRepository = mock(PreguntaRepository.class);
-        service = new ExamenServiceImpl(repository, preguntaRepository);
+        //This will allow us to use @Mock & @InjectMocks annotations
+        //MockitoAnnotations.openMocks(this);
+        /*repository = mock(ExamenRepository.class);
+            preguntaRepository = mock(PreguntaRepository.class);
+            service = new ExamenServiceImpl(repository, preguntaRepository);*/
     }
 
     @Test
@@ -76,7 +89,7 @@ class ExamenServiceImplTest {
     @Test
     void testPreguntasExamenVerifyNullExamen() {
         when(repository.findAll()).thenReturn(Collections.emptyList());
-        when(preguntaRepository.findPreguntasPorExamenId(anyLong())).thenReturn(Datos.PREGUNTAS);
+        //when(preguntaRepository.findPreguntasPorExamenId(anyLong())).thenReturn(Datos.PREGUNTAS);
 
         Examen examen = service.findExamenPorNombreConPreguntas("Matematicas");
 
