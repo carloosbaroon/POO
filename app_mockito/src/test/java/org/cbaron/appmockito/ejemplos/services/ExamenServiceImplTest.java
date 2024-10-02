@@ -9,7 +9,9 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.mockito.invocation.InvocationOnMock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.stubbing.Answer;
 
 import static org.mockito.Mockito.*;
 
@@ -24,6 +26,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @ExtendWith(MockitoExtension.class)
 class ExamenServiceImplTest {
 
+    //Given
     @Mock
     ExamenRepository repository;
     @Mock
@@ -100,12 +103,26 @@ class ExamenServiceImplTest {
 
     @Test
     void testGuardarExamen() {
+        //Given -> Preconditions for our test
         Examen newExamen = Datos.EXAMEN;
         newExamen.setPreguntas(Datos.PREGUNTAS);
-        //Here we can use "newExamen" also instead od Datos.EXAMEN
-        when(repository.guardar(any(Examen.class))).thenReturn(Datos.EXAMEN);
+
+        //Simulate to save an Examen without and ID that will be returned from the DB when saved
+        when(repository.guardar(any(Examen.class))).then(new Answer<Examen>(){
+            Long secuencia = 8L;
+            @Override
+            public Examen answer(InvocationOnMock invocationOnMock) throws Throwable {
+                //Here we obtain the examen from the Mocked repository.guardar()
+                Examen examen = invocationOnMock.getArgument(0);
+                examen.setId(secuencia++);
+                return examen;
+            }
+        });
+
+        //When -> When we execute a method from our real classes
         Examen examen = service.guardar(newExamen);
 
+        // Then -> We validate
         assertNotNull(examen.getId());
         assertEquals(8L, examen.getId());
         assertEquals("Fisica", examen.getNombre());
