@@ -20,6 +20,46 @@
         <div><input type="text" name="email" id="email"></div>
     </div>
     <div>
+        <label for="pais">Pais</label>
+        <div>
+            <select name="pais" id="pais">
+                <option value="">-- Seleccionar --</option>
+                <option value="ES">Espania</option>
+                <option value="MX" selected>Mexico</option>
+                <option value="CL">Chile</option>
+                <option value="AR">Argentina</option>
+                <option value="CO">Colombia</option>
+            </select>
+        </div>
+    </div>
+    <div>
+        <label for="lenguajes">Lenguajes de programacion</label>
+        <div>
+            <select name="lenguajes" id="lenguajes" multiple>
+                <option value="java" selected>Java</option>
+                <option value="jakartaee" selected>Jakarta EE</option>
+                <option value="spring">Spring boot</option>
+                <option value="angular">Angular</option>
+                <option value="js">JavaScript</option>
+            </select>
+        </div>
+    </div>
+    <div>
+        <label>Roles</label>
+        <div>
+            <input type="checkbox" name="roles" value="ROLE_ADMIN">
+            <label>Administrador</label>
+        </div>
+        <div>
+            <input type="checkbox" name="roles" value="ROLE_USER" checked>
+            <label>Usuario</label>
+        </div>
+        <div>
+            <input type="checkbox" name="roles" value="ROLE_MODERATOR">
+            <label>Moderador</label>
+        </div>
+    </div>
+    <div>
         <div>
             <input type="submit" value="Enviar">
         </div>
