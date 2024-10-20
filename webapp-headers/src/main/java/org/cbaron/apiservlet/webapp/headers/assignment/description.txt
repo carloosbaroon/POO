@@ -1,0 +1,9 @@
+El objetivo de la tarea consiste en modificar el proyecto de la sección para hacer una mejora. Los requerimientos consisten en refactorizar (mejorar optimizar) el servlet BuscarProductoServlet, para que la lógica de la búsqueda se encuentre en el service y no en el servlet.
+
+Requerimientos:
+
+La acción doPost debe obtener el parámetro nombre del request, realizar la búsqueda mediante el service y devolver el resultado como un Optional.
+
+La búsqueda se debe implementar en un nuevo método de la interface ProductoService e implementarlo en la clase ProductoServiceImpl usando el api stream de java 8, este nuevo método se debe llamar buscarProducto con la siguiente firma:
+
+Optional<Producto> buscarProducto(String nombre);
