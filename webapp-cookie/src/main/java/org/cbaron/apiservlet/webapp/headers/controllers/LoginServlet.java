@@ -6,6 +6,8 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.cbaron.apiservlet.webapp.headers.services.LoginService;
+import org.cbaron.apiservlet.webapp.headers.services.LoginServiceImp;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -20,11 +22,8 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Cookie[] cookies = req.getCookies() != null ? req.getCookies(): new Cookie[0];
-        Optional<String> cookieOptional = Arrays.stream(cookies)
-                .filter(cookie -> "username".equals(cookie.getName()))
-                .map(Cookie::getValue)
-                .findAny();
+        LoginService auth = new LoginServiceImp();
+        Optional<String> cookieOptional = auth.getUsername(req);
 
         if (cookieOptional.isPresent()) {
             resp.setContentType("text/html;charset=UTF-8");
@@ -37,7 +36,8 @@ public class LoginServlet extends HttpServlet {
                 out.println("         <title>Hola" + cookieOptional.get()+ "</title>");
                 out.println("     </head>");
                 out.println("     <body>");
-                out.println("         <h1>Hola" + cookieOptional.get() + " ya has iniciado anteriormente</h1>");
+                out.println("         <h1>Hola " + cookieOptional.get() + " ya has iniciado anteriormente</h1>");
+                out.println("<p><a href='" + req.getContextPath() + "/index.html'>volver</a><p>");
                 out.println("     </body>");
                 out.println("</html>");
             }
@@ -69,6 +69,7 @@ public class LoginServlet extends HttpServlet {
                 out.println("     <body>");
                 out.println("         <h1>Login correcto</h1>");
                 out.println("         <h3>Hola " + username + " has iniciado sesion con exito!</h3>");
+                out.println("<p><a href='" + req.getContextPath() + "/index.html'>volver</a><p>");
                 out.println("     </body>");
                 out.println("</html>");
             }
