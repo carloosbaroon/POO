@@ -15,7 +15,7 @@ import org.cbaron.apiservlet.webapp.headers.services.ProductoServiceImpl;
 import java.io.IOException;
 import java.util.Optional;
 
-@WebServlet("agregar-carro")
+@WebServlet("/agregar-carro")
 public class AgregarCarroServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
