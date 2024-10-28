@@ -18,6 +18,7 @@ public class ActualizarCarroServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
+        //We don't need anymore this validation since it'll always be created in our ApplicationListener.sessionCreated()
         if (session.getAttribute("carro") != null) {
             Carro carro = (Carro) session.getAttribute("carro");
             updateProductos(req, carro);

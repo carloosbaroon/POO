@@ -23,6 +23,9 @@ public class ProductoServlet extends HttpServlet {
         LoginService auth = new LoginServiceSessionImp();
         Optional<String> cookieOptional = auth.getUsername(req);
 
+        String mensajeRequest = (String) req.getAttribute("mensaje");
+        String mensajeGlobal = (String) req.getServletContext().getAttribute("mensaje");
+
         resp.setContentType("text/html;charset=UTF-8");
 
         try (PrintWriter out = resp.getWriter()) {
@@ -31,7 +34,7 @@ public class ProductoServlet extends HttpServlet {
             out.println("<html>");
             out.println("     <head>");
             out.println("         <meta charset=\"UTF-8\">");
-            out.println("         <title>Listado de productos</title>");
+            out.println("         <title>Listado de productos!!!</title>");
             out.println("     </head>");
             out.println("     <body>");
             out.println("         <h1>Listado de productos</h1>");
@@ -60,6 +63,8 @@ public class ProductoServlet extends HttpServlet {
                 out.println("</tr>");
             });
             out.println("</table>");
+            out.println("<p>Mensaje global: " + mensajeGlobal + "</p>");
+            out.println("<p>Mensaje request: " + mensajeRequest + "</p>");
             out.println("     </body>");
             out.println("</html>");
 
