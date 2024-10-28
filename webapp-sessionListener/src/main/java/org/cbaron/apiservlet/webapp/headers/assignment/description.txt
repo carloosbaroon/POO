@@ -1,0 +1,2 @@
+Para la siguiente tarea se pide crear una clase listener que inicialice en el request un atributo llamado nombreCompleto
+y como valor el nombre y apellido de cada uno, luego mostrarlo en un servlet mapeado a la ruta /index.html
