@@ -20,7 +20,7 @@ public class ConnectionFilter implements Filter {
             }
             try {
                 servletRequest.setAttribute("connection", connection);
-
+                //This will return the call to the doGet, doPost, etc. of the Servlet!
                 filterChain.doFilter(servletRequest, servletResponse);
                 connection.commit();
             } catch (SQLException e) {
