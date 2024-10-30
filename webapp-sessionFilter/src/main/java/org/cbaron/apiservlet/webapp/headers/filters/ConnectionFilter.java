@@ -3,6 +3,7 @@ package org.cbaron.apiservlet.webapp.headers.filters;
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletResponse;
+import org.cbaron.apiservlet.webapp.headers.services.ServiceJdbcException;
 import org.cbaron.apiservlet.webapp.headers.util.ConnectionJDBC;
 
 import java.io.IOException;
@@ -23,7 +24,7 @@ public class ConnectionFilter implements Filter {
                 //This will return the call to the doGet, doPost, etc. of the Servlet!
                 filterChain.doFilter(servletRequest, servletResponse);
                 connection.commit();
-            } catch (SQLException e) {
+            } catch (SQLException | ServiceJdbcException e) {
                 connection.rollback();
                 ((HttpServletResponse) servletResponse).sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e.getMessage());
                 e.printStackTrace();

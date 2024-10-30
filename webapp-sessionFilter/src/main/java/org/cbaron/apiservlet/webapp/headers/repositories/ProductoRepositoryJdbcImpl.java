@@ -2,10 +2,7 @@ package org.cbaron.apiservlet.webapp.headers.repositories;
 
 import org.cbaron.apiservlet.webapp.headers.models.Producto;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,7 +32,21 @@ public class ProductoRepositoryJdbcImpl implements Repository<Producto> {
 
     @Override
     public Producto porId(Long id) throws SQLException {
-        return null;
+        Producto producto = null;
+
+        try (PreparedStatement statement = connection.prepareStatement("SELECT p.*, c.nombre as categoria FROM productos as p " +
+                "inner join categorias as c ON (p.categoria_id = c.id) WHERE p.id = ?")) {
+
+            statement.setLong(1, id);
+
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    producto = getProducto(resultSet);
+                }
+            }
+        }
+
+        return producto;
     }
 
     @Override
