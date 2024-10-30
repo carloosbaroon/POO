@@ -11,6 +11,13 @@ public class ConnectionJDBC {
     private static String password = "sasa";
 
     public static Connection getConnection() throws SQLException {
+        try {
+            // Explicitly load the MySQL driver
+            Class.forName("com.mysql.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException("MySQL JDBC Driver not found", e);
+        }
+
         return DriverManager.getConnection(url, username, password);
     }
 }

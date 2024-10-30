@@ -7,7 +7,7 @@
 </head>
 <body>
 <h1>Iniciar sesion</h1>
-<form action="/webapp-sessionCarroCompras/login" method="post">
+<form action="/webapp-sessionFilter/login" method="post">
     <div>
         <label for="username">Username</label>
         <div>
