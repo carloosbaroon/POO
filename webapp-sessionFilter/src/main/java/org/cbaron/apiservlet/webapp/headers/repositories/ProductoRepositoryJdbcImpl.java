@@ -53,10 +53,40 @@ public class ProductoRepositoryJdbcImpl implements Repository<Producto> {
     @Override
     public void guardar(Producto producto) throws SQLException {
 
+        String sql;
+
+        if (producto.getId() != null && producto.getId() > 0) {
+            sql = "UPDATE productos set nombre=?, precio=?, sku=?, categoria_id=? WHERE id=?";
+        } else {
+            sql = "INSERT into productos(nombre, precio, sku, categoria_id, fecha_registro) values (?,?,?,?,?)";
+        }
+
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, producto.getNombre());
+            statement.setInt(2, producto.getPrecio());
+            statement.setString(3, producto.getSku());
+            statement.setLong(4, producto.getCategoria().getId());
+
+            if (producto.getId() != null && producto.getId() > 0) {
+                statement.setLong(5, producto.getId());
+            } else {
+                statement.setDate(5, Date.valueOf(producto.getFechaRegistro()));
+            }
+
+            statement.executeUpdate();
+        }
+
     }
 
     @Override
     public void eliminar(Long id) throws SQLException {
+
+        String sql = "DELETE from productos WHERE id=?";
+
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setLong(1, id);
+            statement.executeUpdate();
+        }
 
     }
 
