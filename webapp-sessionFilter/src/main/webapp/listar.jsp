@@ -22,7 +22,7 @@
     <tr>
         <th>id</th>
         <th>nombre</th>
-        <th>tipo</th>
+        <th>categoria</th>
         <% if (username.isPresent()) {%>
         <th>precio</th>
         <th>agregar</th>
@@ -34,7 +34,7 @@
         </td>
         <td><%=p.getNombre()%>
         </td>
-        <td><%=p.getTipo()%>
+        <td><%=p.getCategoria().getNombre()%>
         </td>
         <% if (username.isPresent()) { %>
         <td><%= p.getPrecio() %></td>
