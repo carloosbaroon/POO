@@ -1,5 +1,6 @@
 package org.cbaron.apiservlet.webapp.headers.services;
 
+import org.cbaron.apiservlet.webapp.headers.models.Categoria;
 import org.cbaron.apiservlet.webapp.headers.models.Producto;
 
 import java.util.Arrays;
@@ -17,5 +18,25 @@ public class ProductoServiceImpl implements ProductoService{
     @Override
     public Optional<Producto> getById(Long id) {
         return listar().stream().filter(producto -> producto.getId().equals(id)).findAny();
+    }
+
+    @Override
+    public void guardar(Producto producto) {
+
+    }
+
+    @Override
+    public void eliminar(Long id) {
+
+    }
+
+    @Override
+    public List<Categoria> listarCategoria() {
+        return List.of();
+    }
+
+    @Override
+    public Optional<Categoria> porIdCategoria(Long id) {
+        return Optional.empty();
     }
 }
