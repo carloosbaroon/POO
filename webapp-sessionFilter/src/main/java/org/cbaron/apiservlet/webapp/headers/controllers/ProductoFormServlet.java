@@ -6,11 +6,14 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.cbaron.apiservlet.webapp.headers.models.Categoria;
+import org.cbaron.apiservlet.webapp.headers.models.Producto;
 import org.cbaron.apiservlet.webapp.headers.services.ProductoService;
 import org.cbaron.apiservlet.webapp.headers.services.ProductoServiceJdbcImpl;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -22,16 +25,52 @@ public class ProductoFormServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        logger.info("Are we reaching the servlet?");
         Connection connection = (Connection) req.getAttribute("connection");
         ProductoService service = new ProductoServiceJdbcImpl(connection);
-        List<Categoria> categorias = service.listarCategoria();
-        System.out.println(categorias);
+
         req.setAttribute("categorias", service.listarCategoria());
         getServletContext().getRequestDispatcher("/form.jsp").forward(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        //An Attribute is the one WE register in the request
+        Connection connection = (Connection) req.getAttribute("connection");
+        ProductoService service = new ProductoServiceJdbcImpl(connection);
+
+        //A parameter is the one being sent in the request in our form
+        String nombre = req.getParameter("nombre");
+        Integer precio;
+        try {
+            precio = Integer.valueOf(req.getParameter("precio"));
+        } catch (NumberFormatException e) {
+            precio = 0;
+        }
+        String sku = req.getParameter("sku");
+        String fechaStr = req.getParameter("fecha_registro");
+        Long categoriaId;
+        try {
+            categoriaId = Long.valueOf(req.getParameter("categoria"));
+        } catch (NumberFormatException e) {
+            categoriaId = 0L;
+        }
+
+        LocalDate fecha = LocalDate.parse(fechaStr, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+
+        Producto producto = new Producto();
+        producto.setNombre(nombre);
+        producto.setSku(sku);
+        producto.setPrecio(precio);
+        producto.setFechaRegistro(fecha);
+
+        Categoria categoria = new Categoria();
+        categoria.setId(categoriaId);
+
+        producto.setCategoria(categoria);
+
+        service.guardar(producto);
+
+        resp.sendRedirect(req.getContextPath() + "/productos");
     }
 }
