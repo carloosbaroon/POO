@@ -25,7 +25,7 @@ public class CategoriaRepositoryImpl implements Repository<Categoria>{
                 categorias.add(categoria);
             }
         }
-        return List.of();
+        return categorias;
     }
 
     @Override
