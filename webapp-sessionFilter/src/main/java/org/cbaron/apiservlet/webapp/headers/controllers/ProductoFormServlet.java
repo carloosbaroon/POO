@@ -14,7 +14,8 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Logger;
 
 @WebServlet("/productos/form")
@@ -56,21 +57,50 @@ public class ProductoFormServlet extends HttpServlet {
             categoriaId = 0L;
         }
 
-        LocalDate fecha = LocalDate.parse(fechaStr, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        Map<String, String> errores = new HashMap<>();
+        if (nombre == null || nombre.isBlank()) {
+            errores.put("nombre", "El nombre no puede ser vacio");
+        }
 
-        Producto producto = new Producto();
-        producto.setNombre(nombre);
-        producto.setSku(sku);
-        producto.setPrecio(precio);
-        producto.setFechaRegistro(fecha);
+        if (sku == null || sku.isBlank()) {
+            errores.put("sku", "El sku no puede ser vacio");
+        } else if (sku.length() > 10) {
+            errores.put("sku", "El sku no puede tener mas de 10 caracteres");
+        }
 
-        Categoria categoria = new Categoria();
-        categoria.setId(categoriaId);
+        if (fechaStr == null || fechaStr.isBlank()) {
+            errores.put("fecha_registro", "La fecha no puede ser vacia");
+        }
 
-        producto.setCategoria(categoria);
+        if (precio.equals(0)) {
+            errores.put("precio", "El precio es requerido");
+        }
 
-        service.guardar(producto);
+        if (categoriaId.equals(0L)) {
+            errores.put("categoria", "La categoria es requerida");
+        }
 
-        resp.sendRedirect(req.getContextPath() + "/productos");
+        if (errores.isEmpty()) {
+
+            LocalDate fecha = LocalDate.parse(fechaStr, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+
+            Producto producto = new Producto();
+            producto.setNombre(nombre);
+            producto.setSku(sku);
+            producto.setPrecio(precio);
+            producto.setFechaRegistro(fecha);
+
+            Categoria categoria = new Categoria();
+            categoria.setId(categoriaId);
+
+            producto.setCategoria(categoria);
+
+            service.guardar(producto);
+
+            resp.sendRedirect(req.getContextPath() + "/productos");
+        } else {
+            req.setAttribute("errores", errores);
+            this.doGet(req, resp);
+        }
     }
 }
