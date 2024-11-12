@@ -1,8 +1,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"
          import="java.util.*, org.cbaron.apiservlet.webapp.headers.models.*" %>
+<%@ page import="java.time.format.DateTimeFormatter" %>
 <%
     List<Categoria> categorias = (List<Categoria>) request.getAttribute("categorias");
     Map<String, String> errores = (Map<String, String>) request.getAttribute("errores");
+    Producto producto = (Producto) request.getAttribute("producto");
+    String fecha = producto.getFechaRegistro() != null?
+            producto.getFechaRegistro().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")): "";
 %>
 <html>
 <head>
@@ -14,7 +18,7 @@
     <div>
         <label for="nombre">Nombre</label>
         <div>
-            <input type="text" name="nombre" id="nombre">
+            <input type="text" name="nombre" id="nombre" value="<%=producto.getNombre() != null? producto.getNombre(): ""%>">
         </div>
         <% if (errores != null && errores.containsKey("nombre")) {%>
         <div style="color: red">
@@ -25,7 +29,7 @@
     <div>
         <label for="precio">Precio</label>
         <div>
-            <input type="number" name="precio" id="precio">
+            <input type="number" name="precio" id="precio" value="<%=producto.getPrecio()  != 0? producto.getPrecio(): ""%>">
         </div>
         <% if (errores != null && errores.containsKey("precio")) {%>
         <div style="color: red">
@@ -36,7 +40,7 @@
     <div>
         <label for="sku">SKU</label>
         <div>
-            <input type="text" name="sku" id="sku">
+            <input type="text" name="sku" id="sku" value="<%=producto.getSku() != null? producto.getPrecio(): ""%>">
         </div>
         <% if (errores != null && errores.containsKey("sku")) {%>
         <div style="color: red">
@@ -47,7 +51,7 @@
     <div>
         <label for="fecha_registro">Fecha</label>
         <div>
-            <input type="date" name="fecha_registro" id="fecha_registro">
+            <input type="date" name="fecha_registro" id="fecha_registro" value="<%=fecha%>">
         </div>
         <% if (errores != null && errores.containsKey("fecha_registro")) {%>
         <div style="color: red">
@@ -61,7 +65,7 @@
             <select name="categoria" id="categoria">
                 <option value="">Seleccionar</option>
                 <% for (Categoria c : categorias) {%>
-                <option value="<%=c.getId()%>"><%=c.getNombre()%>
+                <option value="<%=c.getId()%>" <%=c.getId().equals(producto.getCategoria().getId())? "selected": ""%>><%=c.getNombre()%>
                 </option>
                 <%}%>
             </select>
