@@ -10,7 +10,7 @@ import org.cbaron.apiservlet.webapp.headers.services.LoginServiceSessionImp;
 import java.io.IOException;
 import java.util.Optional;
 
-@WebFilter({"/carro/*"})
+@WebFilter({"/carro/*", "/productos/form/*"})
 public class LoginFilter implements Filter {
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
