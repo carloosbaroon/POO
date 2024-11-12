@@ -1,0 +1,1 @@
+Para este nuevo desafío se requiere modificar el proyecto de la tarea anterior (listado de cursos y búsqueda) para implementar el CRUD completo de los cursos, para crear, actualizar, eliminar y listar.
