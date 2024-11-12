@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -30,7 +31,6 @@ public class ProductoFormServlet extends HttpServlet {
         Connection connection = (Connection) req.getAttribute("connection");
         ProductoService service = new ProductoServiceJdbcImpl(connection);
 
-        req.setAttribute("categorias", service.listarCategoria());
 
         Long id;
         try {
@@ -49,6 +49,7 @@ public class ProductoFormServlet extends HttpServlet {
             }
         }
 
+        req.setAttribute("categorias", service.listarCategoria());
         req.setAttribute("producto", producto);
         getServletContext().getRequestDispatcher("/form.jsp").forward(req, resp);
     }
@@ -100,27 +101,38 @@ public class ProductoFormServlet extends HttpServlet {
             errores.put("categoria", "La categoria es requerida");
         }
 
+        LocalDate fecha;
+        try {
+            fecha = LocalDate.parse(fechaStr, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        } catch (DateTimeParseException e) {
+            fecha = null;
+        }
+
+        Long id;
+        try {
+            id = Long.valueOf(req.getParameter("id"));
+        } catch (NumberFormatException e) {
+            id = 0L;
+        }
+
+        Producto producto = new Producto();
+        producto.setId(id);
+        producto.setNombre(nombre);
+        producto.setSku(sku);
+        producto.setPrecio(precio);
+        producto.setFechaRegistro(fecha);
+
+        Categoria categoria = new Categoria();
+        categoria.setId(categoriaId);
+        producto.setCategoria(categoria);
         if (errores.isEmpty()) {
-
-            LocalDate fecha = LocalDate.parse(fechaStr, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-
-            Producto producto = new Producto();
-            producto.setNombre(nombre);
-            producto.setSku(sku);
-            producto.setPrecio(precio);
-            producto.setFechaRegistro(fecha);
-
-            Categoria categoria = new Categoria();
-            categoria.setId(categoriaId);
-
-            producto.setCategoria(categoria);
-
             service.guardar(producto);
-
             resp.sendRedirect(req.getContextPath() + "/productos");
         } else {
             req.setAttribute("errores", errores);
-            this.doGet(req, resp);
+            req.setAttribute("categorias", service.listarCategoria());
+            req.setAttribute("producto", producto);
+            getServletContext().getRequestDispatcher("/form.jsp").forward(req, resp);
         }
     }
 }

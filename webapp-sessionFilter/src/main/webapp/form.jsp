@@ -40,7 +40,7 @@
     <div>
         <label for="sku">SKU</label>
         <div>
-            <input type="text" name="sku" id="sku" value="<%=producto.getSku() != null? producto.getPrecio(): ""%>">
+            <input type="text" name="sku" id="sku" value="<%=producto.getSku() != null? producto.getSku(): ""%>">
         </div>
         <% if (errores != null && errores.containsKey("sku")) {%>
         <div style="color: red">
@@ -76,7 +76,8 @@
         </div>
         <%}%>
     </div>
-    <div><input type="submit" value="crear"></div>
+    <div><input type="submit" value="<%=(producto.getId() != null && producto.getId() > 0)? "Editar": "Crear"%>"></div>
+    <input type="hidden" name="id" value="<%=producto.getId()%>">
 </form>
 </body>
 </html>
