@@ -1,13 +1,5 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java"
-         import="java.util.*, org.cbaron.apiservlet.webapp.headers.models.*" %>
-<%@ page import="java.time.format.DateTimeFormatter" %>
-<%
-    List<Categoria> categorias = (List<Categoria>) request.getAttribute("categorias");
-    Map<String, String> errores = (Map<String, String>) request.getAttribute("errores");
-    Producto producto = (Producto) request.getAttribute("producto");
-    String fecha = producto.getFechaRegistro() != null?
-            producto.getFechaRegistro().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")): "";
-%>
+<%@ page contentType="text/html;charset=UTF-8" import="java.time.format.*" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
     <title>Formulario Productos</title>
